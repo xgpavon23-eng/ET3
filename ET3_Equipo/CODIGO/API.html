@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>API Description</title>
+    <link rel="stylesheet" type="text/css" href="./Base/css/IU.css" media="screen" />
+</head>
+
+<body>
+    <header class='bordeado'>
+        <h1>API Description - ET3 Equipo</h1>
+    </header>
+    <section class='bordeado'>
+        <h2>Funciones y Métodos</h2>
+        <p>Descripción de la funcionalidad implementada.</p>
+
+        <h3>EntidadAbstracta</h3>
+        <ul>
+            <li>
+                <strong>constructor(estructura)</strong>: Inicializa la clase entidad.
+                <br>Input: estructura (objeto JSON con la definición de la entidad)
+                <br>Output: -
+            </li>
+            <li>
+                <strong>createForm_ADD()</strong>: Prepara y muestra el formulario de alta.
+                <br>Input: -
+                <br>Output: - (Renderiza formulario en DOM)
+            </li>
+            <li>
+                <strong>createForm_SEARCH()</strong>: Prepara y muestra el formulario de búsqueda.
+                <br>Input: -
+                <br>Output: - (Renderiza formulario en DOM)
+            </li>
+            <li>
+                <strong>createForm_EDIT(datos)</strong>: Prepara y muestra el formulario de edición con los datos
+                cargados.
+                <br>Input: datos (objeto con los valores de la tupla a editar)
+                <br>Output: - (Renderiza formulario en DOM)
+            </li>
+            <li>
+                <strong>createForm_DELETE(datos)</strong>: Prepara y muestra el formulario de borrado con los datos
+                cargados.
+                <br>Input: datos (objeto con los valores de la tupla a borrar)
+                <br>Output: - (Renderiza formulario en DOM)
+            </li>
+            <li>
+                <strong>createForm_SHOWCURRENT(datos)</strong>: Prepara y muestra el formulario de detalle con los datos
+                cargados.
+                <br>Input: datos (objeto con los valores de la tupla a mostrar)
+                <br>Output: - (Renderiza formulario en DOM)
+            </li>
+            <li>
+                <strong>cargar_formulario_dinamico(accion, datos_tupla = null)</strong>: Genera el HTML del formulario
+                dinámicamente según la estructura y la acción.
+                <br>Input: accion (string: ADD, EDIT, DELETE, SEARCH, SHOWCURRENT), datos_tupla (objeto opcional con
+                datos)
+                <br>Output: - (Inyexta HTML en DOM)
+            </li>
+            <li>
+                <strong>validar(atributo, accion)</strong>: Valida un campo específico según las reglas definidas en la
+                estructura.
+                <br>Input: atributo (id del campo), accion (tipo de operación)
+                <br>Output: boolean (true si válido, false si no)
+            </li>
+            <li>
+                <strong>validar_formulario(accion)</strong>: Valida todos los campos del formulario para la acción dada.
+                <br>Input: accion (string)
+                <br>Output: boolean (true si todo el formulario es válido)
+            </li>
+            <li>
+                <strong>SEARCH()</strong>: Ejecuta la acción de búsqueda contra el back.
+                <br>Input: - (Lee datos del formulario 'form_iu')
+                <br>Output: - (Actualiza la tabla de resultados o muestra mensaje)
+            </li>
+            <li>
+                <strong>ADD()</strong>: Ejecuta la acción de alta contra el back.
+                <br>Input: - (Lee datos del formulario 'form_iu')
+                <br>Output: - (Refresca tabla tras éxito o muestra error)
+            </li>
+            <li>
+                <strong>EDIT()</strong>: Ejecuta la acción de edición contra el back.
+                <br>Input: - (Lee datos del formulario 'form_iu')
+                <br>Output: - (Refresca tabla tras éxito o muestra error)
+            </li>
+            <li>
+                <strong>DELETE()</strong>: Ejecuta la acción de borrado contra el back.
+                <br>Input: - (Lee datos del formulario 'form_iu')
+                <br>Output: - (Refresca tabla tras éxito o muestra error)
+            </li>
+            <li>
+                <strong>crearTablaDatos(datos, mostrarespeciales)</strong>: Genera la tabla HTML con los resultados de
+                datos.
+                <br>Input: datos (array de objetos), mostrarespeciales (array opcional para formateo)
+                <br>Output: - (Renderiza tabla en DOM)
+            </li>
+            <li>
+                <strong>mostrarocultarcolumnas()</strong>: Muestra u oculta columnas de la tabla según la selección
+                actual.
+                <br>Input: -
+                <br>Output: - (Modifica estilos display en DOM)
+            </li>
+            <li>
+                <strong>modificarcolumnasamostrar(atributo)</strong>: Añade o quita un atributo de la lista de columnas
+                visibles.
+                <br>Input: atributo (nombre del campo)
+                <br>Output: -
+            </li>
+            <li>
+                <strong>updateCheckboxMultiple(key)</strong>: Actualiza el valor de un input hidden basado en la
+                selección de checkboxes múltiples.
+                <br>Input: key (id del campo)
+                <br>Output: -
+            </li>
+        </ul>
+
+        <h3>Validations</h3>
+        <ul>
+            <li>
+                <strong>min_size(id, minsize)</strong>: Comprueba tamaño mínimo de valor. Soporta inputs de texto
+                (longitud caracteres) y ficheros (tamaño en bytes).
+                <br>Input: id (string), minsize (int)
+                <br>Output: boolean
+            </li>
+            <li>
+                <strong>max_size(id, maxsize)</strong>: Comprueba tamaño máximo de valor. Soporta inputs de texto
+                (longitud caracteres) y ficheros (tamaño en bytes).
+                <br>Input: id (string), maxsize (int)
+                <br>Output: boolean
+            </li>
+            <li>
+                <strong>format(id, exprreg)</strong>: Comprueba formato contra expresión regular. Soporta inputs de
+                texto (valor) y ficheros (nombre del fichero).
+                <br>Input: id (string), exprreg (string regex)
+                <br>Output: boolean
+            </li>
+            <li>
+                <strong>not_exist_file(id)</strong>: Comprueba si se ha seleccionado un fichero (si es obligatorio).
+                <br>Input: id (string)
+                <br>Output: boolean
+            </li>
+            <li>
+                <strong>type_file(id, array_tipos)</strong>: Comprueba tipo MIME de fichero.
+                <br>Input: id (string), array_tipos (array strings)
+                <br>Output: boolean
+            </li>
+            <li>
+                <strong>date_format(id)</strong>: Comprueba formato de fecha (DD/MM/YYYY).
+                <br>Input: id (string)
+                <br>Output: boolean
+            </li>
+        </ul>
+    </section>
+    <footer class='bordeado'>
+        <a href="index.html">Volver a Inicio</a>
+    </footer>
+</body>
+
+</html>
