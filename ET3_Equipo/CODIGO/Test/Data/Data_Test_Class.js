@@ -59,10 +59,6 @@ class Data_Test {
         
         for (let i=0;i<pruebas.length;i++){
 
-            // se crea el formulario oculto
-        document.getElementById('contenedor_IU_form').innerHTML = this.entidad.manual_form_creation();
-        this.dom.createElement('form_iu','submit_button','input','submit');
-
             resultadopruebas.entidad = pruebas[i][0];
             resultadopruebas.campo = pruebas[i][1];
             resultadopruebas.NumDef = pruebas[i][2];
@@ -305,8 +301,27 @@ class Data_Test {
         };
         
         
-        const newWindow = window.open("", "Nueva Ventana", "width=1100,height=800");
+        const newWindow = window.open("", "Nueva Ventana test Data", "width=1100,height=800");
         //newWindow.document.write(salidapruebasnofile);
+
+        // Inicialmente la ventana estará oculta hasta que se cargue el css
+        newWindow.document.documentElement.style.visibility = "hidden";
+
+      // Hace que la ruta base sea la de la ventana principal (para importar css)
+        newWindow.document.head.innerHTML = `
+            <base href="${window.location.origin}/">
+        `;
+
+        // Agrego el link al css de estilos de los tests
+        const link = newWindow.document.createElement("link");
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = "./Base/css/estilo-tests.css";
+        // Cuando se cargue el css, hago visible la ventana
+        link.onload = () => {
+            newWindow.document.documentElement.style.visibility = "visible";
+        };
+        newWindow.document.head.appendChild(link);
         
         
         this.dom.showData('IU_Test_result_nofile', salidapruebasnofile, marcados);
@@ -356,7 +371,7 @@ class Data_Test {
             var mioption = document.createElement('option');
             mioption.value = valor;
             opciones[opciones.length] = mioption;
-            opciones.selectedIndex = opciones.length-1;
+            opciones.selectedIndex = opciones.length;
         }
 
     }

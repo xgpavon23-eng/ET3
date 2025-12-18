@@ -2,167 +2,238 @@
 <html>
 
 <head>
-    <!-- meta y configuracion global-->
-    <meta charset="UTF-8">
-    <!-- css -->
-    <link rel="stylesheet" type="text/css" href="./Base/css/IU.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./Base/css/estilo-1.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./Base/css/estilo-2.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./Base/css/estilo-tests.css" media="screen" />
-    <!-- clases generales -->
-    <!-- idioma -->
-    <script type="text/javascript" src="./locale/idioma.js"></script>
-    <script type="text/javascript" src="./app/Textos_ES.js"></script>
-    <script type="text/javascript" src="./app/Textos_EN.js"></script>
-    <script type="text/javascript" src="./Core/Validations_Class.js"></script>
-    <script type="text/javascript" src="./Core/ExternalAccess_class.js"></script>
-    <!-- clases dom -->
-    <script type="text/javascript" src="./Core/Dom_table_Class.js"></script>
-    <script type="text/javascript" src="./Core/Dom_Class.js"></script>
-    <script type="text/javascript" src="./Base/EntidadAbstracta.js"></script>
+	<!-- meta y configuracion global-->
+	<meta charset="UTF-8">
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="./Base/css/IU.css" media="screen" />
+	<!-- clases generales -->
+	<!-- idioma -->
+	<script type="text/javascript" src="./locale/idioma.js"></script>
+	<script type="text/javascript" src="./app/Textos_ES.js"></script>
+	<script type="text/javascript" src="./app/Textos_EN.js"></script>
+	<script type="text/javascript" src="./Core/Validations_Class.js"></script>
+	<script type="text/javascript" src="./Core/ExternalAccess_class.js"></script>
+	<!-- clases dom -->
+	<script type="text/javascript" src="./Core/Dom_table_Class.js"></script>
+	<script type="text/javascript" src="./Core/Dom_Class.js"></script>
+	<script type="text/javascript" src="./Base/EntidadAbstracta.js"></script>
+	<!-- clases entidades -->
+	<script type="text/javascript" src="./app/persona_Class.js"></script>
+	<script type="text/javascript" src="./app/alumnograduacion_Class.js"></script>
+	<script type="text/javascript" src="./app/articulo_Class.js"></script>
+	<script type="text/javascript" src="./app/ubicacion_Class.js"></script>
+	<script type="text/javascript" src="./app/entidadGeneral_Class.js"></script>
+	<!-- clases de test -->
+	<script type="text/javascript" src="./Test/Unit/Unit_Test_Class.js"></script>
+	<script type="text/javascript" src="./Test/Data/Data_Test_Class.js"></script>
+	<!-- ficheros de testing-->
+	<script type="text/javascript" src="./app/ET2_infotest.js"></script>
+	<script type="text/javascript" src="./app/ET2_persona_infotest.js"></script>
 
-    <!-- estructura datos equipo -->
-    <script type="text/javascript" src="./ET3_Datos_Equipo.js"></script>
+	<!-- Estructuras de entidades -->
+	<script type="text/javascript" src="./app/estructuras/estructura_alumnograduacion.js"></script>
+	<script type="text/javascript" src="./app/estructuras/estructura_articulo.js"></script>
+	<script type="text/javascript" src="./app/estructuras/estructura_ubicacion.js"></script>
 
-    <!-- estructuras de entidades (definidas aqui o en ficheros aparte) -->
-    <!-- ejemplo estructura -->
-    <script type="text/javascript" src="./app/estructuras.js"></script>
-    <script type="text/javascript" src="./app/estructuras_ET2.js"></script>
+	<!-- Datos del equipo -->
+	<script type="text/javascript" src="./ET3_Datos_NombreEquipo.js"></script>
 
-    <!-- clases de test -->
-    <script type="text/javascript" src="./Test/Unit/Unit_Test_Class.js"></script>
-    <script type="text/javascript" src="./Test/Data/Data_Test_Class.js"></script>
+	<!-- este es el script que carga las librerias ajax que usamos para acceder al back -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <!-- este es el script que carga las librerias ajax que usamos para acceder al back -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+	<script type="text/javascript">
+
+		// Verificar que las estructuras se cargan
+		document.addEventListener('DOMContentLoaded', function () {
+			console.log('Estructura alumnograduacion:', typeof estructura_alumnograduacion);
+			console.log('Estructura articulo:', typeof estructura_articulo);
+			console.log('Estructura ubicacion:', typeof estructura_ubicacion);
+		});
+
+
+		// Función para mostrar datos del equipo
+		function mostrarDatosEquipo() {
+			const contenedor = document.getElementById('datos-equipo');
+			if (def_datos_NombreEquipo && Array.isArray(def_datos_NombreEquipo)) {
+				const tabla = document.createElement('table');
+				tabla.className = 'tabla-equipo';
+
+				// Cabecera
+				const thead = document.createElement('thead');
+				const trHead = document.createElement('tr');
+				Object.keys(def_datos_NombreEquipo[0]).forEach(columna => {
+					const th = document.createElement('th');
+					th.textContent = columna;
+					trHead.appendChild(th);
+				});
+				thead.appendChild(trHead);
+				tabla.appendChild(thead);
+
+				// Datos
+				const tbody = document.createElement('tbody');
+				def_datos_NombreEquipo.forEach(alumno => {
+					const tr = document.createElement('tr');
+					Object.values(alumno).forEach(valor => {
+						const td = document.createElement('td');
+						td.textContent = valor;
+						tr.appendChild(td);
+					});
+					tbody.appendChild(tr);
+				});
+				tabla.appendChild(tbody);
+
+				contenedor.appendChild(tabla);
+			}
+		}
+
+		// Llamar cuando se carga la página
+		document.addEventListener('DOMContentLoaded', mostrarDatosEquipo);
+	</script>
 
 </head>
 
 <body>
 
-    <header id='header_page' class='bordeado'>
-        <span class='text_titulo_app'></span>
-        <img src="./iconos/Spain.png" onclick="setLang('ES');" />
-        <img src="./iconos/United-Kingdom.png" onclick="setLang('EN');" />
-        <a href="API.html" title="API Description"><img src="./iconos/HELP.png"
-                style="height: 30px; cursor: pointer;"></a>
-    </header>
-    <nav class='bordeado'><span class='text_titulo_menu' onclick="menu_work();"></span>
-    </nav>
-    <aside id='div-menu'>
-        <ol>
-            <!-- Menu items will call EntidadAbstracta with structure -->
-            <li class="opcionmenu"><span onclick="entidad = new EntidadAbstracta(estructura_test);">Entidad Test</span>
-            </li>
-            <li class="opcionmenu"><span onclick="entidad = new EntidadAbstracta(estructura_articulo);">Gestión
-                    Artículo</span>
-            </li>
-        </ol>
-    </aside>
+	<header id='header_page' class='bordeado'>
+		<span class='text_titulo_app'></span>
+		<img src="./iconos/Spain.png" onclick="setLang('ES');" />
+		<img src="./iconos/United-Kingdom.png" onclick="setLang('EN');" />
+	</header>
+	<nav class='bordeado'>
+		<!-- -->
+		<section id="info-equipo" class="bordeado">
+			<h3>Información del Equipo</h3>
+			<div id="datos-equipo"></div>
+		</section>
 
-    <div id="team_info" class="bordeado" style="margin: 10px; padding: 10px;">
-        <h3>Equipo</h3>
-        <ul id="lista_equipo"></ul>
-    </div>
+		<span class='text_titulo_menu' onclick="menu_work();"></span>
 
-    <section id="IU_manage_entity">
-        <section id="IU_manage_head">
-            <div id='title_page' class='bordeado'><span id="text_title_page"></span>
-            </div>
-            <div id="add_search_columns">
-                <img id="botonADD" src="./iconos/ADD.png" onclick="entidad.createForm_ADD();" />
-                <img id="botonSEARCH" src="./iconos/SEARCH.png" onclick="entidad.createForm_SEARCH();" />
+	</nav>
+	<aside id='div-menu'>
+		<ol>
+			<li class="opcionmenu"><span class='text_menu_persona'
+					onclick="entidad = new entidadGeneral('persona');">PERSONA</span></li>
+			<li class="opcionmenu"><span class='text menu_alumnograduacion'
+					onclick="entidad = new entidadGeneral('alumnograduacion');">ALUMNOGRADUACION</span></li>
+			<li class="opcionmenu"><span class='text menu_articulo'
+					onclick="entidad = new entidadGeneral('articulo');">ARTICULO</span></li>
+			<li class="opcionmenu"><span class='text menu_ubicacion'
+					onclick="entidad = new entidadGeneral('ubicacion');">UBICACION</span></li>
 
-                <label id="label_seleccioncolumnas" class="label_seleccioncolumnas"></label>
-                <select id="seleccioncolumnas" multiple>
-                </select>
+			<li class="opcionmenu"><span
+					onclick="entidad = new entidadGeneral(prompt('Nombre de la entidad:'));">Gestionar otra
+					entidad</span></li>
 
-                <!-- <img id="botonTEST_UNIT" src="./iconos/TEST_UNIT.png" onclick="test = new Unit_Test(entidad.nombreentidad)"/>
-				<img id="botonTEST_DATA" src="./iconos/TEST.png" onclick="test = new Data_Test(eval(entidad.nombreentidad))"/> -->
+		</ol>
 
-            </div>
-        </section>
+	</aside>
+	<section id="IU_manage_entity">
+		<section id="IU_manage_head">
+			<div id='title_page' class='bordeado'><span id="text_title_page"></span>
+			</div>
+			<div id="add_search_columns">
+				<img id="botonADD" src="./iconos/ADD.png" onclick="entidad.createForm_ADD();" />
+				<img id="botonSEARCH" src="./iconos/SEARCH.png" onclick="entidad.createForm_SEARCH();" />
 
-        <section id="IU_manage_table">
+				<label id="label_seleccioncolumnas" class="label_seleccioncolumnas"></label>
+				<select id="seleccioncolumnas" multiple>
+				</select>
 
-        </section>
+				<img id="botonTEST_UNIT" src="./iconos/TEST_UNIT.png"
+					onclick="test = new Unit_Test(entidad.nombreentidad)" />
+				<img id="botonTEST_DATA" src="./iconos/TEST.png"
+					onclick="test = new Data_Test(eval(entidad.nombreentidad))" />
 
-    </section>
-    <section id="Div_IU_form" class='div_IU_form bordeado'>
-        <div class="contenidoForm" id="contenidoForm">
-            <div class="class_titulo_form">
-                <span id="class_contenido_titulo_form"></span>
-            </div>
-            <div id="contenedor_IU_form">
+			</div>
+		</section>
 
-            </div>
-            <br>
-            <img src="./iconos/BACK.png" onclick="entidad.dom.hide_element('Div_IU_form');" />
-        </div>
-    </section>
+		<section id="IU_manage_table">
 
-    <section id="Div_IU_Test" class='div_IU_form bordeado'></section>
+		</section>
 
-    <section id="IU_Test_result" class='bordeado contenidoTest'>
+	</section>
+	<section id="Div_IU_form" class='div_IU_form bordeado'>
+		<div class="contenidoForm" id="contenidoForm">
+			<div class="class_titulo_form">
+				<span id="class_contenido_titulo_form"></span>
+			</div>
+			<div id="contenedor_IU_form">
 
-        <section id="IU_Test_result_nofile" class="'bordeado ">
+			</div>
+			<br>
+			<img src="./iconos/BACK.png" onclick="entidad.dom.hide_element('Div_IU_form');" />
+		</div>
+	</section>
 
-        </section>
-        <section id="IU_Test_result_file" class="'bordeado">
+	<section id="Div_IU_Test" class='div_IU_form bordeado'>
+		<div class="contenidoForm" id="contenidoForm">
 
-        </section>
-    </section>
+			<div id="contenedor_IU_Test">
 
-    <article class='bordeado'>Sección article</article>
+			</div>
+			<br>
+			<img src="./iconos/BACK.png" onclick="entidad.dom.hide_element('Div_IU_Test');" />
+		</div>
+	</section>
 
-    <footer class='bordeado'>Pie de página</footer>
+	<section id="IU_Test_result">
 
-    <!-- Overlay para acompañar el modal -->
-    <div id="modal_action_overlay"></div>
+		<section id="IU_Test_result_nofile">
 
-    <!-- Modal para mostrar los errores de accion -->
-    <div id="error_action_modal">
-        <span id="error_action_msg"></span>
-        <!--<img src="./iconos/BACK.png" onclick="cerrarModalError();" />-->
-        <button onclick="entidad.dom.cerrarModalError()">X</button>
-    </div>
+		</section>
+		<section id="IU_Test_result_file">
 
-    <script type="text/javascript">
-        // document.getElementById('div-menu').style.display = 'none';
-        document.getElementById('div-menu').classList.add("hidden");
+		</section>
+	</section>
 
-        document.getElementById('Div_IU_form').style.display = 'none';
-        document.getElementById('IU_Test_result_nofile').style.display = 'none';
-        document.getElementById('IU_Test_result_file').style.display = 'none';
+	<article class='bordeado'>Sección article</article>
 
-        document.getElementById('Div_IU_Test').style.display = 'none';
-        document.getElementById('IU_manage_entity').style.display = 'none';
+	<footer class='bordeado'>Pie de página
+		<!--
+		<a href="./API.html">
+            <img src="./iconos/API.png" alt="API Documentation" title="API Documentation" >
+        </a>
+		-->
+		<img src="./iconos/API.png" alt="API Documentation" title="API Documentation"
+			onclick="window.open('API.html', 'API', 'width=1100,height=800')">
+	</footer>
 
-        /*	hide the text error box if is necessary	
-        document.getElementById('span_error_name').style.display = 'none';
-        */
-        function menu_work() {
-            if (document.getElementById('div-menu').classList.contains("hidden")) {
-                document.getElementById('div-menu').classList.remove("hidden");
-            }
-            else {
-                document.getElementById('div-menu').classList.add("hidden");
-            }
-        }
+	<!-- Overlay para acompañar el modal -->
+	<div id="modal_action_overlay"></div>
 
-        // Display team info
-        const lista = document.getElementById('lista_equipo');
-        if (typeof def_datos_Equipo !== 'undefined') {
-            def_datos_Equipo.forEach(miembro => {
-                const li = document.createElement('li');
-                li.textContent = `${miembro.entrega} - ${miembro.nombre} - ${miembro.dni} - ${miembro.horas} horas`;
-                lista.appendChild(li);
-            });
-        }
+	<!-- Modal para mostrar los errores de accion -->
+	<div id="error_action_modal">
+		<span id="error_action_msg"></span>
+		<!--<img src="./iconos/BACK.png" onclick="cerrarModalError();" />-->
+		<button onclick="entidad.dom.cerrarModalError()">X</button>
+	</div>
 
-        setLang();
-    </script>
+	<script type="text/javascript">
+		document.getElementById('div-menu').style.display = 'none';
+
+		document.getElementById('Div_IU_form').style.display = 'none';
+		document.getElementById('IU_Test_result_nofile').style.display = 'none';
+		document.getElementById('IU_Test_result_file').style.display = 'none';
+
+		document.getElementById('Div_IU_Test').style.display = 'none';
+		document.getElementById('IU_manage_entity').style.display = 'none';
+
+		/*	hide the text error box if is necessary	
+		document.getElementById('span_error_name').style.display = 'none';
+		*/
+		function menu_work() {
+			if (document.getElementById('div-menu').style.display == 'none') {
+				document.getElementById('div-menu').style.display = 'block';
+			}
+			else {
+				document.getElementById('div-menu').style.display = 'none';
+			}
+		}
+
+		setLang();
+	</script>
+
 
 </body>
 

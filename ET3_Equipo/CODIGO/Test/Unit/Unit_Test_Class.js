@@ -18,14 +18,31 @@ class Unit_Test {
 
         const newWindow = window.open("", "Nueva Ventana test Unit", "width=1100,height=800");
         
+        // Inicialmente la ventana estará oculta hasta que se cargue el css
+        newWindow.document.documentElement.style.visibility = "hidden";
+    
+        // Hace que la ruta base sea la de la ventana principal (para importar css)
+        newWindow.document.head.innerHTML = `
+            <base href="${window.location.origin}/">
+        `;
+
+        // Agrego el link al css de estilos de los tests
+        const link = newWindow.document.createElement("link");
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = "./Base/css/estilo-tests.css";
+        // Cuando se cargue el css, hago visible la ventana
+        link.onload = () => {
+            newWindow.document.documentElement.style.visibility = "visible";
+        };
+        newWindow.document.head.appendChild(link);
+        
         this.dom.showData('Div_IU_Test', test_result, marcados);
 
-        newWindow.document.body.innerHTML = document.getElementById('Div_IU_Test').innerHTML;
+        newWindow.document.body.innerHTML += document.getElementById('Div_IU_Test').innerHTML;
         document.getElementById('Div_IU_Test').style.display = 'none';
 
         newWindow.document.close();       
-
-
 
     }
 

@@ -10,52 +10,66 @@ class Validations {
 
 	min_size(id, minsize) {
 		let elemento = document.getElementById(id);
-		if (!elemento) return false;
-
 		switch (elemento.tagName) {
 			case 'INPUT':
-				if (elemento.type === 'file') {
-					if (elemento.files.length === 0) return false; // Or true depending on if empty is allowed (handled by not_empty usually)
-					return elemento.files[0].size >= minsize;
-				}
 				switch (elemento.type) {
 					case 'number':
 					case 'email':
 					case 'text':
-					case 'password':
 						let valorelemento = elemento.value;
-						return valorelemento.length >= minsize;
+						if (valorelemento.length < minsize) {
+							return false;
+						}
+						else {
+							return true;
+						}
+						break;
+					case 'file':
+						break;
 					default:
-						// Handle other inputs or fallback
-						return elemento.value.length >= minsize;
+						break;
 
 				}
 				break;
 			case 'SELECT':
-				// For select, maybe check if value is selected or length of value?
-				return elemento.value.length >= minsize;
-			case 'TEXTAREA':
-				return elemento.value.length >= minsize;
+				break;
 			default:
-				return true;
+				break;
 		}
+
 	}
+
+	//max_size()
+	//@param id Id objeto dom
+	//@param minsize tamaño maximo a validar
 
 	max_size(id, maxsize) {
 		let elemento = document.getElementById(id);
-		if (!elemento) return false;
-
 		switch (elemento.tagName) {
 			case 'INPUT':
-				if (elemento.type === 'file') {
-					if (elemento.files.length === 0) return true;
-					return elemento.files[0].size <= maxsize;
+				switch (elemento.type) {
+					case 'number':
+					case 'email':
+					case 'text':
+						let valorelemento = elemento.value;
+						if (valorelemento.length > maxsize) {
+							return false;
+						}
+						else {
+							return true;
+						}
+						break;
+					case 'file':
+						break;
+					default:
+						break;
+
 				}
-				return elemento.value.length <= maxsize;
-			case 'TEXTAREA':
-				return elemento.value.length <= maxsize;
+				break;
+			case 'SELECT':
+				break;
 			default:
-				return true;
+				break;
 		}
 
 	}
@@ -66,15 +80,8 @@ class Validations {
 	@return {bool} result of regular expression testing  
 	*/
 	format(id, exprreg) {
-		let elemento = document.getElementById(id);
 		let expresionregular = new RegExp(exprreg);
-
-		if (elemento.tagName === 'INPUT' && elemento.type === 'file') {
-			if (elemento.files.length === 0) return true;
-			return expresionregular.test(elemento.files[0].name);
-		}
-
-		let valor = elemento.value;
+		let valor = document.getElementById(id).value;
 		return expresionregular.test(valor);
 	}
 
@@ -88,14 +95,32 @@ class Validations {
 		}
 		return true;
 	}
+	/**
+	@param {string} id of html file element
+	@param {number} maxsize max size allowed for fiel
+	@return {bool} result of size comparison
+	*/
+	max_size_file(id, maxsize) {
+		let objfile = document.getElementById(id);
+		if (objfile.files[0].size > maxsize) {
+			return false;
+		}
+		return true;
+	}
 
 	type_file(id, array_tipos) {
 		let objfile = document.getElementById(id);
-		if (objfile.files.length === 0) return true;
 		if (!(array_tipos.includes(objfile.files[0].type))) {
 			return false;
 		}
 		return true;
+	}
+
+	format_name_file(id, exprreg) {
+		let objfile = document.getElementById(id);
+		let expresionregular = new RegExp(exprreg);
+		let valor = objfile.files[0].name;
+		return expresionregular.test(valor);
 	}
 
 	/**
