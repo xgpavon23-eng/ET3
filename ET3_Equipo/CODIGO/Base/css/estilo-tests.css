@@ -1,6 +1,14 @@
 
 /* Estilos para la tabla de gestión */
-#Div_IU_Test, #IU_Test_result {
+:root {
+    --light-color: #EFFEFF;
+    --medium-color: #a1c2c5;
+    --dark-color: #0E2C31;
+    --emphasis-color-1: #5ba0a5;
+    --emphasis-color-2: #d0f1f4;
+}
+
+#Div_IU_Test {
     width: 100%; /* Ocupa todo el ancho del contenedor */
     border: 0; /* Sin borde */
     box-sizing: border-box; /* Incluye el borde en el tamaño total */
@@ -11,34 +19,11 @@
         font-family: monospace;
         font-size: 12pt;
     }
-
-    & img {
-        position: fixed;
-        right: 18pt;
-        top: 5pt;
-        background-color: var(--emphasis-color-2); /* Color de fondo */
-        box-shadow: 0 4pt 8pt 0 rgba(0, 0, 0, 0.2); /* Sombra alrededor del botón */
-
-        padding: 30pt; /* Relleno */
-        padding-bottom: 3pt; /* Relleno inferior */
-        padding-top: 0pt; /* Relleno superior */
-        border-radius: 10pt; /* Bordes redondeados */
-        
-        cursor: pointer; /* Usar el icono de cursor "pointer" */
-        user-select: none; /* Evita selección de imagen */
-        -webkit-user-drag: none; /* Impide arrastrar la imagen */
-        
-        transition: transform 0.3s; /* Transición suave al transformar */
-        
-        /* Estilos al pasar el ratón por encima */
-        &:hover {
-            transform: scale(1.1); /* Escalar imagen al 110% */
-        }
-    }
+}
 
     /* Estilos para la tabla dentro del contenedor */
-    & table {
-        margin-top: 50pt;
+#tablaresultadostest {
+        margin-top: 10pt;
         width: 100%; /* Ocupa todo el ancho del contenedor */
         border: 6pt solid var(--light-color); /* Borde exterior de la tabla */
 
@@ -99,11 +84,11 @@
                 color: var(--light-color); /* Color de texto */
             }
         }
-    }
 }
 
 
-#IU_Test_result {
+
+#IU_Test_result_nofile, #IU_Test_result_file  {
     border: 2pt solid var(--emphasis-color-1); /* Borde */
     border-top: 0;
     

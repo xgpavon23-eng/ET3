@@ -1,261 +1,579 @@
-var textos_ES = {
-	// header / menu
-	text_titulo_app: "Aplicación ET2",
-	text_titulo_menu: "Menú",
-	menu_articulo: "Artículos",
-	menu_ubicacion: "Ubicaciones",
-	menu_alumnograduacion: "Alumnos Graduación",
-	label_seleccioncolumnas: "Seleccionar columnas",
+let textos_ES = {
 
-	// additional UI pieces
-	text_section_article: "Sección article",
-	text_footer: "Pie de página",
+    // textos titulos generales
+    'text_titulo_app': 'Gestión del Sistema',
+    'text_titulo_menu': 'Opciones de Menú',
+    'text_titulo_page': 'Gestión de Entidades',
+    'text_titulo_pie': 'Pie de página',
+    'label_seleccioncolumnas': 'Seleccionar columnas a mostrar',
 
-	// page title per-entity (added dynamically as class: text_titulo_page_<entity>)
-	text_titulo_page_articulo: "Gestión de Artículos",
-	text_titulo_page_alumnograduacion: "Gestión de Alumnos",
-	text_titulo_page_ubicacion: "Gestión de Ubicaciones",
 
-	// form titles per-entity/action
-	text_contenido_titulo_form_articulo_ADD: "Añadir Artículo",
-	text_contenido_titulo_form_articulo_EDIT: "Editar Artículo",
-	text_contenido_titulo_form_articulo_DELETE: "Eliminar Artículo",
-	text_contenido_titulo_form_articulo_SHOWCURRENT: "Mostrar Artículo",
-	text_contenido_titulo_form_articulo_SEARCH: "Buscar Artículo",
+    // textos menu
+    'text_menu_persona': 'Gestionar Personas',
+    'menu_alumnograduacion': 'Gestionar Alumnos de Graduación',
+    'menu_articulo': 'Gestionar Artículos',
+    'menu_ubicacion': 'Gestionar Ubicaciones',
 
-	text_contenido_titulo_form_alumnograduacion_ADD: "Añadir Alumno",
-	text_contenido_titulo_form_alumnograduacion_EDIT: "Editar Alumno",
-	text_contenido_titulo_form_alumnograduacion_DELETE: "Eliminar Alumno",
-	text_contenido_titulo_form_alumnograduacion_SHOWCURRENT: "Mostrar Alumno",
-	text_contenido_titulo_form_alumnograduacion_SEARCH: "Buscar Alumno",
+    'text_menu_alumnograduacion': 'Gestionar Alumnos de Graduación',
+    'text_menu_articulo': 'Gestionar Artículos',
+    'text_menu_ubicacion': 'Gestionar Ubicaciones',
 
-	text_contenido_titulo_form_ubicacion_ADD: "Añadir Ubicación",
-	text_contenido_titulo_form_ubicacion_EDIT: "Editar Ubicación",
-	text_contenido_titulo_form_ubicacion_DELETE: "Eliminar Ubicación",
-	text_contenido_titulo_form_ubicacion_SHOWCURRENT: "Mostrar Ubicación",
-	text_contenido_titulo_form_ubicacion_SEARCH: "Buscar Ubicación",
 
-	// articulo labels (many are created with class="label_<FIELD>")
-	label_CodigoA: "Código",
-	// plain attribute names used as table header / selectable columns
-	CodigoA: "Código",
-	label_AutoresA: "Autores",
-	AutoresA: "Autores",
-	label_TituloA: "Título del artículo",
-	TituloA: "Título del artículo",
-	label_TituloR: "Título de la revista",
-	TituloR: "Título de la revista",
-	label_ISSN: "ISSN",
-	ISSN: "ISSN",
-	label_VolumenR: "Volumen",
-	VolumenR: "Volumen",
-	label_PagIniA: "Página inicio",
-	PagIniA: "Página inicio",
-	label_PagFinA: "Página fin",
-	PagFinA: "Página fin",
-	label_FechaPublicacionR: "Fecha de publicación",
-	FechaPublicacionR: "Fecha de publicación",
-	label_EstadoA: "Estado",
-	EstadoA: "Estado",
-	label_FicheropdfA: "Fichero PDF (nombre)",
-	FicheropdfA: "Fichero PDF (nombre)",
-	label_nuevo_FicheropdfA: "Nuevo fichero PDF",
-	nuevo_FicheropdfA: "Nuevo fichero PDF",
+    //botones de acciones
+    'botonADD': 'Añadir',
+    'botonSEARCH': 'Buscar',
+    'botonEDIT': 'Editar',
+    'botonDELETE': 'Eliminar',
+    'botonSHOWCURRENT': 'Ver Detalle',
+    'botonBACK': 'Volver',
+    'botonTEST_UNIT': 'Test Unitario',
+    'botonTEST_DATA': 'Test Datos',
 
-	// alumnograduacion (labels use for=id so keys are the ids)
-	alumnograduacion_login: "Login",
-	alumnograduacion_password: "Contraseña",
-	alumnograduacion_nombre: "Nombre",
-	alumnograduacion_apellidos: "Apellidos",
-	alumnograduacion_titulacion: "Titulación",
-	alumnograduacion_dni: "DNI/NIE",
-	alumnograduacion_telefono: "Teléfono",
-	alumnograduacion_direccion: "Dirección",
-	alumnograduacion_email: "Email",
-	alumnograduacion_fotoacto: "Foto acto (nombre)",
-	nuevo_alumnograduacion_fotoacto: "Nueva foto acto (archivo)",
+    //mensajes de error generales
+    'campo_obligatorio': 'Este campo es obligatorio',
+    'formato_invalido': 'Formato inválido',
+    'tamano_incorrecto': 'Tamaño incorrecto',
 
-	// ubicacion (keys = ids)
-	id_site: "ID",
-	id_site: "ID",
-	site_latitud: "Latitud",
-	site_latitud: "Latitud",
-	site_longitud: "Longitud",
-	site_longitud: "Longitud",
-	site_altitude: "Altitud",
-	site_altitude: "Altitud",
-	site_locality: "Localidad",
-	site_locality: "Localidad",
-	site_provider_login: "Proveedor",
-	site_provider_login: "Proveedor",
-	site_north_photo: "Foto Norte (nombre)",
-	nuevo_site_north_photo: "Nueva foto Norte (archivo)",
-	site_south_photo: "Foto Sur (nombre)",
-	nuevo_site_south_photo: "Nueva foto Sur (archivo)",
-	site_east_photo: "Foto Este (nombre)",
-	nuevo_site_east_photo: "Nueva foto Este (archivo)",
-	site_west_photo: "Foto Oeste (nombre)",
-	nuevo_site_west_photo: "Nueva foto Oeste (archivo)",
+    ///////////////////////////////////////////alumnograduacion
+    // textos entidad alumnograduacion
+    'text_title_page_alumnograduacion': 'Gestión de Alumno Graduación',
+    'class_contenido_titulo_form_ADD': 'Añadir Alumno Graduación',
+    'class_contenido_titulo_form_EDIT': 'Editar Alumno Graduación',
+    'class_contenido_titulo_form_DELETE': 'Eliminar Alumno Graduación',
+    'class_contenido_titulo_form_SEARCH': 'Buscar Alumnos Graduación',
+    'class_contenido_titulo_form_SHOWCURRENT': 'Detalle Alumno Graduación',
+    // labels
+    'label_alumnograduacion_login': 'Ususrio *',
+    'input_alumnograduacion_login': 'Introduzca el usuario',
+    'label_alumnograduacion_password': 'Contraseña *',
+    'input_alumnograduacion_password': 'Introduzca la contraseña',
+    'label_alumnograduacion_nombre': 'Nombre *',
+    'input_alumnograduacion_nombre': 'Introduzca el nombre',
+    'label_alumnograduacion_apellidos': 'Apellidos *',
+    'input_alumnograduacion_apellidos': 'Introduzca los apellidos',
+    'label_alumnograduacion_titulacion': 'Titulación',
+    'select_alumnograduacion_titulacion': 'Seleccione titulación',
+    'label_alumnograduacion_dni': 'DNI/NIE *',
+    'input_alumnograduacion_dni': 'Introduzca DNI o NIE',
+    'label_alumnograduacion_telefono': 'Teléfono',
+    'input_alumnograduacion_telefono': 'Introduzca teléfono',
+    'label_alumnograduacion_direccion': 'Dirección',
+    'input_alumnograduacion_direccion': 'Introduzca dirección',
+    'label_alumnograduacion_email': 'Email *',
+    'input_alumnograduacion_email': 'Introduzca email',
+    'label_alumnograduacion_fotoacto': 'Foto Acto',
+    'input_alumnograduacion_fotoacto': 'Nombre archivo foto',
+    'label_nuevo_alumnograduacion_fotoacto': 'Nueva Foto Acto *',
+    'input_nuevo_alumnograduacion_fotoacto': 'Seleccione archivo',
 
-	// generic UI elements
-	submit_button: "Enviar",
-	BACK: "Volver",
-	// table/action headers
-	EDIT: "Editar",
-	DELETE: "Eliminar",
-	SHOWCURRENT: "Mostrar",
-	ADD: "Añadir",
-	SEARCH: "Buscar",
-	RECORDSET_VACIO: "No se han encontrado elementos que coincidan con la búsqueda",
+    // errores validaciones formulario - ADD/EDIT
+    // Login
+    'login_obligatorio_KO': 'El login es obligatorio',
+    'login_min_size_KO': 'El login debe tener al menos 4 caracteres',
+    'login_max_size_KO': 'El login no puede tener más de 15 caracteres',
+    'login_format_KO': 'El login solo puede contener letras sin acentos ni ñ',
+    'login_search_format_KO': 'Para búsqueda, el login solo puede contener letras sin acentos ni ñ',
 
-	// a small set of common validation messages (expand as needed)
-	CodigoA_format_KO: "Código: formato inválido (solo dígitos)",
-	CodigoA_min_size_KO: "Código: valor numérico inválido",
-	AutoresA_min_size_KO: "Autores: longitud mínima no alcanzada",
-	TituloA_min_size_KO: "Título: longitud mínima no alcanzada",
-	FechaPublicacionR_format_KO: "Fecha: formato inválido (usa DD/MM/YYYY, o deja vacío para usar valor por defecto)",
-	FechaPublicacionR_future_KO: "Fecha: no puede ser futura",
-	nuevo_FicheropdfA_type_file_KO: "El fichero debe ser PDF",
+    // Password
+    'password_obligatorio_KO': 'La contraseña es obligatoria',
+    'password_min_size_KO': 'La contraseña debe tener al menos 8 caracteres',
+    'password_max_size_KO': 'La contraseña no puede tener más de 64 caracteres',
+    'password_format_KO': 'La contraseña solo puede contener letras y espacios sin acentos ni ñ',
+    'password_search_format_KO': 'Para búsqueda, la contraseña solo puede contener letras y espacios sin acentos ni ñ',
 
-	alumnograduacion_dni_format_KO: "DNI/NIE: formato inválido",
-	alumnograduacion_login_min_size_KO: "Login: longitud mínima no alcanzada",
+    // Nombre
+    'nombre_obligatorio_KO': 'El nombre es obligatorio',
+    'nombre_min_size_KO': 'El nombre debe tener al menos 2 caracteres',
+    'nombre_max_size_KO': 'El nombre no puede tener más de 25 caracteres',
+    'nombre_format_KO': 'El nombre solo puede contener letras, espacios, ñ y acentos',
+    'nombre_search_format_KO': 'Para búsqueda, el nombre solo puede contener letras, espacios, ñ y acentos',
 
-	id_site_format_KO: "ID: solo dígitos permitidos",
-	site_latitud_format_KO: "Latitud: formato inválido (ej. 41.385063)",
-	site_longitud_format_KO: "Longitud: formato inválido (ej. -3.703790)",
-	site_locality_min_size_KO: "Localidad: longitud mínima no alcanzada",
+    // Apellidos
+    'apellidos_obligatorio_KO': 'Los apellidos son obligatorios',
+    'apellidos_min_size_KO': 'Los apellidos deben tener al menos 2 caracteres',
+    'apellidos_max_size_KO': 'Los apellidos no pueden tener más de 35 caracteres',
+    'apellidos_format_KO': 'Los apellidos solo pueden contener letras, espacios, ñ y acentos',
+    'apellidos_search_format_KO': 'Para búsqueda, los apellidos solo pueden contener letras, espacios, ñ y acentos',
 
-	// additional validation keys discovered in rules/tests
-	CodigoA_max_size_KO: "Código: excede tamaño máximo (11 dígitos)",
-	AutoresA_max_size_KO: "Autores: longitud máxima superada",
-	AutoresA_format_KO: "Autores: formato inválido (solo letras y espacios)",
-	TituloA_max_size_KO: "Título: longitud máxima superada",
-	TituloA_format_KO: "Título: formato inválido",
-	TituloR_min_size_KO: "Título revista: longitud mínima no alcanzada",
-	TituloR_max_size_KO: "Título revista: longitud máxima superada",
-	TituloR_format_KO: "Título revista: formato inválido",
-	ISSN_min_size_KO: "ISSN: longitud inválida (9 caracteres)",
-	ISSN_max_size_KO: "ISSN: longitud inválida (9 caracteres)",
-	ISSN_format_KO: "ISSN: formato inválido (####-####)",
-	VolumenR_min_size_KO: "Volumen: longitud mínima no alcanzada",
-	VolumenR_max_size_KO: "Volumen: longitud máxima superada",
-	VolumenR_format_KO: "Volumen: debe ser numérico",
-	PagIniA_min_size_KO: "Página inicio: longitud mínima no alcanzada",
-	PagIniA_max_size_KO: "Página inicio: longitud máxima superada",
-	PagIniA_format_KO: "Página inicio: formato inválido (número)",
-	PagFinA_min_size_KO: "Página fin: longitud mínima no alcanzada",
-	PagFinA_max_size_KO: "Página fin: longitud máxima superada",
-	PagFinA_format_KO: "Página fin: formato inválido (número)",
-	PagFinA_logic_KO: "Página fin: debe ser mayor o igual que página inicio",
-	FechaPublicacionR_max_size_KO: "Fecha: demasiados caracteres",
-	EstadoA_valor_KO: "Estado: valor inválido",
-	EstadoA_max_size_KO: "Estado: longitud máxima superada",
-	FicheropdfA_max_size_name_file_KO: "Nombre de fichero: supera longitud máxima (20)",
-	FicheropdfA_format_name_file_KO: "Nombre de fichero: formato inválido",
-	nuevo_FicheropdfA_not_exist_file_KO: "Debe subir un fichero PDF",
-	nuevo_FicheropdfA_max_size_file_KO: "Fichero demasiado grande (máx 2MB)",
-	nuevo_FicheropdfA_name_min_size_file_KO: "Nombre de fichero: demasiado corto",
-	nuevo_FicheropdfA_name_max_size_file_KO: "Nombre de fichero: demasiado largo",
-	nuevo_FicheropdfA_format_name_file_KO: "Nombre de fichero: formato inválido",
+    // Titulación
+    'titulacion_obligatorio_KO': 'La titulación es obligatoria',
+    'titulacion_format_KO': 'La titulación debe ser GREI, GRIA, MEI, MIA o PCEO',
+    'titulacion_search_format_KO': 'Para búsqueda, la titulación debe ser GREI, GRIA, MEI, MIA o PCEO',
 
-	// alumnograduacion extras
-	alumnograduacion_dni_min_size_KO: "DNI/NIE: longitud mínima no alcanzada",
-	alumnograduacion_dni_max_size_KO: "DNI/NIE: longitud máxima no alcanzada",
-	alumnograduacion_login_max_size_KO: "Login: longitud máxima superada",
-	alumnograduacion_login_format_KO: "Login: formato inválido",
-	alumnograduacion_titulacion_invalid_KO: "Titulación: valor inválido",
-	alumnograduacion_password_min_size_KO: "Contraseña: longitud mínima no alcanzada",
-	alumnograduacion_password_max_size_KO: "Contraseña: longitud máxima superada",
-	alumnograduacion_password_format_KO: "Contraseña: formato inválido",
-	alumnograduacion_telefono_min_size_KO: "Teléfono: longitud mínima no alcanzada",
-	alumnograduacion_telefono_max_size_KO: "Teléfono: longitud máxima superada",
-	alumnograduacion_telefono_format_KO: "Teléfono: formato inválido (9 dígitos)",
-	alumnograduacion_nombre_min_size_KO: "Nombre: longitud mínima no alcanzada",
-	alumnograduacion_nombre_max_size_KO: "Nombre: longitud máxima superada",
-	alumnograduacion_nombre_format_KO: "Nombre: formato inválido",
-	alumnograduacion_apellidos_min_size_KO: "Apellidos: longitud mínima no alcanzada",
-	alumnograduacion_apellidos_max_size_KO: "Apellidos: longitud máxima superada",
-	alumnograduacion_apellidos_format_KO: "Apellidos: formato inválido",
-	alumnograduacion_direccion_min_size_KO: "Dirección: longitud mínima no alcanzada",
-	alumnograduacion_direccion_max_size_KO: "Dirección: longitud máxima superada",
-	alumnograduacion_direccion_format_KO: "Dirección: formato inválido",
-	alumnograduacion_email_min_size_KO: "Email: longitud mínima no alcanzada",
-	alumnograduacion_email_max_size_KO: "Email: longitud máxima superada",
-	alumnograduacion_email_format_KO: "Email: formato inválido",
-	nuevo_alumnograduacion_fotoacto_not_exist_file_KO: "La imagen no existe",
-	nuevo_alumnograduacion_fotoacto_format_name_file_KO: "Nombre de imagen: formato inválido",
-	nuevo_alumnograduacion_fotoacto_max_size_file_KO: "Imagen demasiado grande",
-	nuevo_alumnograduacion_fotoacto_name_min_size_file_KO: "Nombre de imagen: demasiado corto",
-	nuevo_alumnograduacion_fotoacto_name_max_size_file_KO: "Nombre de imagen: demasiado largo",
+    // DNI/NIE
+    'dni_obligatorio_KO': 'El DNI/NIE es obligatorio',
+    'dni_size_KO': 'El DNI/NIE debe tener exactamente 9 caracteres',
+    'dni_format_KO': 'Formato DNI inválido (8 números + letra)',
+    'nie_format_KO': 'Formato NIE inválido (X/Y/Z + 7 números + letra)',
+    'dni_letra_KO': 'Letra del DNI incorrecta',
+    'nie_letra_KO': 'Letra del NIE incorrecta',
+    'dni_formato_invalido_KO': 'Formato de DNI/NIE inválido',
+    'dni_search_format_KO': 'Para búsqueda, el DNI/NIE debe tener 9 caracteres',
 
-	// ubicacion extras
-	site_altitude_format_KO: "Altitud: formato inválido (número)",
-	site_locality_max_size_KO: "Localidad: longitud máxima superada",
-	site_provider_login_min_size_KO: "Proveedor: longitud mínima no alcanzada",
-	site_provider_login_max_size_KO: "Proveedor: longitud máxima superada",
-	nuevo_site_north_photo_not_exist_file_KO: "Fichero no existe",
-	nuevo_site_north_photo_format_name_file_KO: "Nombre de fichero: formato inválido",
-	nuevo_site_north_photo_max_size_file_KO: "Fichero demasiado grande",
-	nuevo_site_south_photo_not_exist_file_KO: "Fichero no existe",
-	// Traducciones para Sur, Este, Oeste (formato/tamaño/no existe) — igual que Norte
-	nuevo_site_south_photo_format_name_file_KO: "Nombre de fichero: formato inválido",
-	nuevo_site_south_photo_max_size_file_KO: "Fichero demasiado grande",
-	nuevo_site_east_photo_not_exist_file_KO: "Fichero no existe",
-	nuevo_site_east_photo_format_name_file_KO: "Nombre de fichero: formato inválido",
-	nuevo_site_east_photo_max_size_file_KO: "Fichero demasiado grande",
-	nuevo_site_west_photo_not_exist_file_KO: "Fichero no existe",
-	nuevo_site_west_photo_format_name_file_KO: "Nombre de fichero: formato inválido",
-	nuevo_site_west_photo_max_size_file_KO: "Fichero demasiado grande",
-	site_north_photo_max_size_KO: "Nombre de fichero demasiado largo",
-	site_north_photo_format_KO: "Formato de nombre inválido",
-	site_south_photo_max_size_KO: "Nombre de fichero demasiado largo",
-	site_south_photo_format_KO: "Formato de nombre inválido",
-	site_east_photo_max_size_KO: "Nombre de fichero demasiado largo",
-	site_east_photo_format_KO: "Formato de nombre inválido",
-	site_west_photo_max_size_KO: "Nombre de fichero demasiado largo",
-	site_west_photo_format_KO: "Formato de nombre inválido",
+    // Teléfono
+    'telefono_obligatorio_KO': 'El teléfono es obligatorio',
+    'telefono_size_KO': 'El teléfono debe tener exactamente 9 dígitos',
+    'telefono_format_KO': 'El teléfono solo puede contener números',
+    'telefono_search_format_KO': 'Para búsqueda, el teléfono solo puede contener números',
 
-	// added translations for newly-introduced validation keys
-	id_site_min_size_KO: "ID fuera de rango (demasiado pequeño)",
-	id_site_max_size_KO: "ID fuera de rango (demasiado grande)",
-	site_latitud_min_size_KO: "Latitud fuera de rango (demasiado baja)",
-	site_latitud_max_size_KO: "Latitud fuera de rango (demasiado alta)",
-	site_longitud_min_size_KO: "Longitud fuera de rango (demasiado baja)",
-	site_longitud_max_size_KO: "Longitud fuera de rango (demasiado alta)",
-	site_altitude_min_size_KO: "Altitud fuera de rango (demasiado baja)",
-	site_altitude_max_size_KO: "Altitud fuera de rango (demasiado alta)",
+    // Dirección
+    'direccion_obligatorio_KO': 'La dirección es obligatoria',
+    'direccion_max_size_KO': 'La dirección no puede tener más de 100 caracteres',
+    'direccion_format_KO': 'La dirección solo puede contener caracteres alfanuméricos con acentos y ñ',
+    'direccion_search_format_KO': 'Para búsqueda, la dirección solo puede contener caracteres alfanuméricos con acentos y ñ',
 
-	site_north_photo_min_size_KO: "Nombre de fichero demasiado corto",
-	site_south_photo_min_size_KO: "Nombre de fichero demasiado corto",
-	site_east_photo_min_size_KO: "Nombre de fichero demasiado corto",
-	site_west_photo_min_size_KO: "Nombre de fichero demasiado corto",
+    // Email
+    'email_obligatorio_KO': 'El email es obligatorio',
+    'email_max_size_KO': 'El email no puede tener más de 40 caracteres',
+    'email_format_KO': 'Formato de email inválido',
+    'email_search_format_KO': 'Para búsqueda, formato de email inválido',
 
-	nuevo_site_north_photo_name_min_size_file_KO: "Nombre de fichero: demasiado corto",
-	nuevo_site_north_photo_max_name_size_file_KO: "Nombre de fichero: demasiado largo",
-	nuevo_site_south_photo_name_min_size_file_KO: "Nombre de fichero: demasiado corto",
-	nuevo_site_south_photo_max_name_size_file_KO: "Nombre de fichero: demasiado largo",
-	nuevo_site_east_photo_name_min_size_file_KO: "Nombre de fichero: demasiado corto",
-	nuevo_site_east_photo_max_name_size_file_KO: "Nombre de fichero: demasiado largo",
-	nuevo_site_west_photo_name_min_size_file_KO: "Nombre de fichero: demasiado corto",
-	nuevo_site_west_photo_max_name_size_file_KO: "Nombre de fichero: demasiado largo",
+    // Foto Acto
+    'fotoacto_obligatorio_KO': 'La foto del acto es obligatoria',
+    'fotoacto_not_exist_file_KO': 'Debe seleccionar un archivo de foto',
+    'fotoacto_format_name_file_KO': 'El nombre del archivo solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'fotoacto_type_file_KO': 'El tipo de archivo debe ser JPG/JPEG',
+    'fotoacto_max_size_file_KO': 'El tamaño del archivo no puede superar 2MB',
+    'fotoacto_min_size_name_KO': 'El nombre del archivo debe tener al menos 7 caracteres',
+    'fotoacto_max_size_name_KO': 'El nombre del archivo no puede tener más de 40 caracteres',
+    'fotoacto_search_format_KO': 'Para búsqueda, el nombre de archivo solo puede contener letras sin acentos ni ñ ni espacios y punto',
 
-	// Validación de tipo JPEG (aplicada a todos los uploads de fotos)
-	nuevo_alumnograduacion_fotoacto_type_file_jpeg_KO: "Solo se permiten archivos JPEG/JPG",
-	nuevo_FicheropdfA_type_file_jpeg_KO: "Solo se permiten archivos JPEG/JPG",
-	nuevo_site_north_photo_type_file_jpeg_KO: "Solo se permiten archivos JPEG/JPG",
-	nuevo_site_south_photo_type_file_jpeg_KO: "Solo se permiten archivos JPEG/JPG",
-	nuevo_site_east_photo_type_file_jpeg_KO: "Solo se permiten archivos JPEG/JPG",
-	nuevo_site_west_photo_type_file_jpeg_KO: "Solo se permiten archivos JPEG/JPG",
+    // Opciones de select
+    'option_GREI': 'GREI',
+    'option_GRIA': 'GRIA',
+    'option_MEI': 'MEI',
+    'option_MIA': 'MIA',
+    'option_PCEO': 'PCEO',
 
-	// Generic Validation Errors
-	ERROR_MIN_SIZE: "El tamaño debe ser mayor que ####",
-	ERROR_MAX_SIZE: "El tamaño debe ser menor que ####",
-	ERROR_EXP_REG: "El formato no es correcto (####)",
-	ERROR_NO_FILE: "Es obligatorio subir un archivo",
-	ERROR_TYPE_FILE: "El tipo de archivo no es válido",
-	ERROR_DATE_FORMAT: "La fecha debe tener el formato DD/MM/YYYY",
 
-	// action modal errors (examples)
-	ACTION_ERROR_GENERIC: "Se ha producido un error en la acción",
-	ACTION_SUCCESS: "Acción realizada con éxito",
+
+    //////////////////////////////////////////articulo
+    'text_title_page_articulo': 'Gestión de Artículos',
+    'class_contenido_titulo_form_ADD_articulo': 'Añadir Artículo',
+    'class_contenido_titulo_form_EDIT_articulo': 'Editar Artículo',
+    'class_contenido_titulo_form_DELETE_articulo': 'Eliminar Artículo',
+    'class_contenido_titulo_form_SEARCH_articulo': 'Buscar Artículos',
+    'class_contenido_titulo_form_SHOWCURRENT_articulo': 'Detalle Artículo',
+    /*
+         // atributos 
+        'CodigoA': 'Código Artículo',
+        'AutoresA': 'Autores',
+        'TituloA': 'Título Artículo',
+        'TituloR': 'Título Revista',
+        'ISSN': 'ISSN',
+        'VolumenR': 'Volumen Revista',
+        'PagIniA': 'Página Inicial',
+        'PagFinA': 'Página Final',
+        'FechaPublicacionR': 'Fecha Publicación',
+        'FicheropdfA': 'Fichero PDF',
+        'EstadoA': 'Estado',
+        'nuevo_FicheropdfA': 'Nuevo Fichero PDF',
+    */
+    // labels
+    'label_CodigoA': 'Código Artículo *',
+    'input_CodigoA': 'Introduzca código',
+    'label_AutoresA': 'Autores *',
+    'input_AutoresA': 'Introduzca autores',
+    'label_TituloA': 'Título Artículo *',
+    'input_TituloA': 'Introduzca título artículo',
+    'label_TituloR': 'Título Revista *',
+    'input_TituloR': 'Introduzca título revista',
+    'label_ISSN': 'ISSN *',
+    'input_ISSN': 'Introduzca ISSN',
+    'label_VolumenR': 'Volumen Revista *',
+    'input_VolumenR': 'Introduzca volumen',
+    'label_PagIniA': 'Página Inicial *',
+    'input_PagIniA': 'Introduzca página inicial',
+    'label_PagFinA': 'Página Final *',
+    'input_PagFinA': 'Introduzca página final',
+    'label_FechaPublicacionR': 'Fecha Publicación *',
+    'input_FechaPublicacionR': 'Seleccione fecha',
+    'label_FicheropdfA': 'Archivo PDF',
+    'input_FicheropdfA': 'Nombre archivo PDF',
+    'label_nuevo_FicheropdfA': 'Nuevo Archivo PDF',
+    'input_nuevo_FicheropdfA': 'Seleccione archivo PDF',
+    'label_EstadoA': 'Estado *',
+    'select_EstadoA': 'Seleccione estado',
+    'select_EstadoA': 'Seleccionar estado',
+    'label_EstadoA': 'Estado *',
+    'label_EstadoA_Enviado': 'Enviado',
+    'label_EstadoA_Revision': 'Revisión',
+    'label_EstadoA_Publicado': 'Publicado',
+    'radio_EstadoA': 'Opción estado',
+    'estado_min_size_KO': 'El estado es obligatorio',
+    'estado_format_KO': 'El estado debe ser Enviado, Revisión o Publicado',
+    'estado_search_format_KO': 'Para búsqueda, el estado debe ser Enviado, Revisión o Publicado',
+
+    // errores de validaciones
+
+    'codigo_format_KO': 'Formato inválido. Solo números',
+    'codigo_min_size_KO': 'Código obligatorio',
+    'codigo_search_format_KO': 'Formato de búsqueda inválido. Solo números',
+
+    'autores_min_size_KO': 'Autores obligatorios. Mínimo 2 caracteres',
+    'autores_max_size_KO': 'Autores demasiado largos. Máximo 200 caracteres',
+    'autores_format_KO': 'Formato inválido. Solo letras, espacios, ñ y acentos',
+    'autores_search_format_KO': 'Formato de búsqueda inválido. Solo letras, espacios, ñ y acentos',
+
+    'tituloA_min_size_KO': 'Título artículo obligatorio',
+    'tituloA_max_size_KO': 'Título artículo demasiado largo. Máximo 100 caracteres',
+    'tituloA_search_format_KO': 'Formato de búsqueda inválido para título artículo',
+
+    'tituloR_min_size_KO': 'Título revista obligatorio',
+    'tituloR_max_size_KO': 'Título revista demasiado largo. Máximo 100 caracteres',
+    'tituloR_search_format_KO': 'Formato de búsqueda inválido para título revista',
+
+    'issn_size_KO': 'Longitud incorrecta. Debe tener 9 caracteres',
+    'issn_format_KO': 'Formato inválido. Debe ser 1234-5678',
+    'issn_search_format_KO': 'Formato de búsqueda inválido. Debe ser ISSN válido',
+
+    'volumen_positivo_KO': 'Debe ser un número positivo',
+    'volumen_max_size_KO': 'Volumen demasiado largo. Máximo 4 dígitos',
+    'volumen_search_format_KO': 'Formato de búsqueda inválido. Solo números',
+
+    'pagIni_positivo_KO': 'Debe ser un número positivo',
+    'pagIni_max_size_KO': 'Página inicial demasiado larga. Máximo 4 dígitos',
+    'pagIni_search_format_KO': 'Formato de búsqueda inválido. Solo números',
+
+    'pagFin_positivo_KO': 'Debe ser un número positivo',
+    'pagFin_max_size_KO': 'Página final demasiado larga. Máximo 4 dígitos',
+    'pagFin_mayor_igual_KO': 'Debe ser mayor o igual que la página inicial',
+    'pagFin_search_format_KO': 'Formato de búsqueda inválido. Solo números',
+
+    'fecha_min_size_KO': 'Fecha obligatoria',
+    'fecha_format_KO': 'Formato fecha inválido. Debe ser AAAA-MM-DD',
+    'fecha_search_format_KO': 'Formato de búsqueda inválido. Solo números y guiones',
+
+    'estado_min_size_KO': 'Estado obligatorio',
+    'estado_format_KO': 'Valor no permitido. Debe ser Enviado, Revisión o Publicado',
+    'estado_search_format_KO': 'Valor de búsqueda no permitido. Debe ser Enviado, Revisión o Publicado',
+
+    'ficheropdf_search_format_KO': 'Formato de búsqueda inválido. Solo letras sin acentos ni ñ ni espacios y punto',
+
+
+
+    // Opciones de estado
+    'option_Enviado': 'Enviado',
+    'option_Revision': 'Revisión',
+    'option_Publicado': 'Publicado',
+
+    // mensajes específicos
+    'confirm_delete_articulo': '¿Está seguro de que desea eliminar este artículo? Esta acción no se puede deshacer.',
+    'search_results_articulo': 'artículos encontrados que coinciden con su búsqueda',
+
+    ///////////////////////////////////// ubicacion
+
+    'text_title_page_ubicacion': 'Gestión de Ubicaciones',
+    'class_contenido_titulo_form_ADD_ubicacion': 'Añadir Ubicación',
+    'class_contenido_titulo_form_EDIT_ubicacion': 'Editar Ubicación',
+    'class_contenido_titulo_form_DELETE_ubicacion': 'Eliminar Ubicación',
+    'class_contenido_titulo_form_SEARCH_ubicacion': 'Buscar Ubicaciones',
+    'class_contenido_titulo_form_SHOWCURRENT_ubicacion': 'Detalle Ubicación',
+    /*
+         // atributos 
+        'id_site': 'ID Sitio',
+        'site_latitud': 'Latitud',
+        'site_longitud': 'Longitud',
+        'site_altitude': 'Altitud',
+        'site_locality': 'Localidad',
+        'site_provider_login': 'Login Proveedor',
+        'site_north_photo': 'Foto Norte',
+        'site_south_photo': 'Foto Sur',
+        'site_east_photo': 'Foto Este',
+        'site_west_photo': 'Foto Oeste',
+        'nuevo_site_north_photo': 'Nueva Foto Norte',
+        'nuevo_site_south_photo': 'Nueva Foto Sur',
+        'nuevo_site_east_photo': 'Nueva Foto Este',
+        'nuevo_site_west_photo': 'Nueva Foto Oeste',
+    */
+    // labels
+    'label_id_site': 'ID Sitio *',
+    'input_id_site': 'Introduzca ID sitio',
+    'label_site_latitud': 'Latitud *',
+    'input_site_latitud': 'Introduzca latitud',
+    'label_site_longitud': 'Longitud *',
+    'input_site_longitud': 'Introduzca longitud',
+    'label_site_altitude': 'Altitud *',
+    'input_site_altitude': 'Introduzca altitud',
+    'label_site_locality': 'Localidad *',
+    'input_site_locality': 'Introduzca localidad',
+    'label_site_provider_login': 'Login Proveedor *',
+    'input_site_provider_login': 'Introduzca login proveedor',
+    'label_site_north_photo': 'Foto Norte',
+    'input_site_north_photo': 'Nombre archivo norte',
+    'label_nuevo_site_north_photo': 'Nueva Foto Norte',
+    'input_nuevo_site_north_photo': 'Seleccione archivo norte',
+    'label_site_south_photo': 'Foto Sur',
+    'input_site_south_photo': 'Nombre archivo sur',
+    'label_nuevo_site_south_photo': 'Nueva Foto Sur',
+    'input_nuevo_site_south_photo': 'Seleccione archivo sur',
+    'label_site_east_photo': 'Foto Este',
+    'input_site_east_photo': 'Nombre archivo este',
+    'label_nuevo_site_east_photo': 'Nueva Foto Este',
+    'input_nuevo_site_east_photo': 'Seleccione archivo este',
+    'label_site_west_photo': 'Foto Oeste',
+    'input_site_west_photo': 'Nombre archivo oeste',
+    'label_nuevo_site_west_photo': 'Nueva Foto Oeste',
+    'input_nuevo_site_west_photo': 'Seleccione archivo oeste',
+
+    // errores validaciones
+    'id_site_obligatorio_KO': 'ID Sitio es obligatorio',
+    'id_site_min_size_KO': 'ID Sitio es obligatorio',
+    'id_site_search_format_KO': 'Formato de búsqueda inválido. Solo números',
+
+    'latitud_obligatorio_KO': 'Latitud es obligatoria',
+    'latitud_min_size_KO': 'Latitud es obligatoria',
+    'latitud_formato_KO': 'Formato latitud inválido. Debe ser decimal entre -90 y 90',
+    'latitud_format_KO': 'Formato latitud inválido. Debe ser decimal entre -90 y 90',
+    'latitud_search_format_KO': 'Formato de búsqueda inválido. Solo números y punto decimal',
+
+    'longitud_obligatorio_KO': 'Longitud es obligatoria',
+    'longitud_min_size_KO': 'Longitud es obligatoria',
+    'longitud_formato_KO': 'Formato longitud inválido. Debe ser decimal entre -180 y 180',
+    'longitud_format_KO': 'Formato longitud inválido. Debe ser decimal entre -180 y 180',
+    'longitud_search_format_KO': 'Formato de búsqueda inválido. Solo números y punto decimal',
+
+    'altitude_obligatorio_KO': 'Altitud es obligatoria',
+    'altitude_min_size_KO': 'Altitud es obligatoria',
+    'altitude_formato_KO': 'Formato inválido. Solo números',
+    'altitude_format_KO': 'Formato inválido. Solo números',
+    'altitude_search_format_KO': 'Formato de búsqueda inválido. Solo números',
+
+    'locality_obligatorio_KO': 'Localidad es obligatoria',
+    'locality_min_size_KO': 'Localidad es obligatoria',
+    'locality_max_size_KO': 'Tamaño muy grande. Máximo 40 caracteres',
+    'locality_format_KO': 'Formato inválido. Solo caracteres alfanuméricos con acentos y espacios',
+    'locality_search_format_KO': 'Formato de búsqueda inválido. Solo caracteres alfanuméricos con acentos y espacios',
+
+    'provider_login_obligatorio_KO': 'Login Proveedor es obligatorio',
+    'provider_login_min_size_KO': 'Login Proveedor es obligatorio',
+    'provider_login_max_size_KO': 'Tamaño muy grande. Máximo 30 caracteres',
+    'provider_login_format_KO': 'Formato inválido. Solo caracteres alfanuméricos sin espacios',
+    'provider_login_search_format_KO': 'Formato de búsqueda inválido. Solo caracteres alfanuméricos sin espacios',
+
+    'north_photo_search_format_KO': 'Formato de búsqueda inválido. Solo letras sin acentos ni ñ ni espacios y punto',
+    'south_photo_search_format_KO': 'Formato de búsqueda inválido. Solo letras sin acentos ni ñ ni espacios y punto',
+    'east_photo_search_format_KO': 'Formato de búsqueda inválido. Solo letras sin acentos ni ñ ni espacios y punto',
+    'west_photo_search_format_KO': 'Formato de búsqueda inválido. Solo letras sin acentos ni ñ ni espacios y punto',
+
+    'altitude_min_size_KO': 'Altitud es obligatoria',
+    'altitude_format_KO': 'Formato inválido. Solo números',
+    'altitude_max_size_KO': 'Tamaño muy grande. Máximo 4 dígitos',
+    'altitude_search_format_KO': 'Formato de búsqueda inválido. Solo números',
+
+    // site_locality  
+    'locality_min_size_KO': 'Localidad es obligatoria',
+    'locality_format_KO': 'Formato inválido. Solo caracteres alfanuméricos con acentos y espacios',
+    'locality_search_format_KO': 'Formato de búsqueda inválido. Solo caracteres alfanuméricos con acentos y espacios',
+
+    // id_site
+    'id_site_format_KO': 'Formato ID Site inválido. Solo números',
+    'id_site_min_size_KO': 'ID Site es obligatorio',
+    'id_site_search_format_KO': 'Formato de búsqueda inválido. Solo números',
+
+    // mensajes específicos
+    'confirm_delete_ubicacion': '¿Está seguro de que desea eliminar esta ubicación? Esta acción no se puede deshacer.',
+    'search_results_ubicacion': 'ubicaciones encontradas que coinciden con su búsqueda',
+
+    //////////////// sistema
+    'RECORDSET_VACIO': 'No se han encontrado elementos que coincidan con la búsqueda',
+    'OPERACION_EXITOSA': 'Operación realizada con éxito',
+    'ERROR_SERVIDOR': 'Error en el servidor. Por favor, intente nuevamente',
+    'ERROR_CONEXION': 'Error de conexión. Verifique su conexión a internet',
+
+    /////////////////TEST Y VALIDACIONES
+    'TEST_CORRECTO': 'Test pasado correctamente',
+    'TEST_INCORRECTO': 'Test fallido',
+    'PRUEBA_EXITOSA': 'Prueba exitosa',
+    'PRUEBA_FALLIDA': 'Prueba fallida',
+
+    /////////////////faltan
+
+    'confirm_delete_alumnograduacion': 'Are you sure you want to delete this graduation student? This action cannot be undone.',
+    'confirm_delete_articulo': 'Are you sure you want to delete this article? This action cannot be undone.',
+
+    // Search results
+    'search_results_alumnograduacion': 'graduation students found matching your search',
+    'search_results_articulo': 'articles found matching your search',
+
+    // Errors for location file fields
+    'north_photo_not_exist_file_KO': 'You must select a north photo file',
+    'north_photo_format_name_file_KO': 'The north photo file name can only contain letters without accents, ñ, spaces, and dot',
+    'north_photo_type_file_KO': 'The north photo file type must be JPG',
+    'north_photo_max_size_file_KO': 'The north photo file size cannot exceed 2MB',
+    'north_photo_min_size_name_KO': 'The north photo file name must have at least 7 characters',
+    'north_photo_max_size_name_KO': 'The north photo file name cannot have more than 50 characters',
+
+    'south_photo_not_exist_file_KO': 'You must select a south photo file',
+    'south_photo_format_name_file_KO': 'The south photo file name can only contain letters without accents, ñ, spaces, and dot',
+    'south_photo_type_file_KO': 'The south photo file type must be JPG',
+    'south_photo_max_size_file_KO': 'The south photo file size cannot exceed 2MB',
+    'south_photo_min_size_name_KO': 'The south photo file name must have at least 7 characters',
+    'south_photo_max_size_name_KO': 'The south photo file name cannot have more than 50 characters',
+
+    'east_photo_not_exist_file_KO': 'You must select an east photo file',
+    'east_photo_format_name_file_KO': 'The east photo file name can only contain letters without accents, ñ, spaces, and dot',
+    'east_photo_type_file_KO': 'The east photo file type must be JPG',
+    'east_photo_max_size_file_KO': 'The east photo file size cannot exceed 2MB',
+    'east_photo_min_size_name_KO': 'The east photo file name must have at least 7 characters',
+    'east_photo_max_size_name_KO': 'The east photo file name cannot have more than 50 characters',
+
+    'west_photo_not_exist_file_KO': 'You must select a west photo file',
+    'west_photo_format_name_file_KO': 'The west photo file name can only contain letters without accents, ñ, spaces, and dot',
+    'west_photo_type_file_KO': 'The west photo file type must be JPG',
+    'west_photo_max_size_file_KO': 'The west photo file size cannot exceed 2MB',
+    'west_photo_min_size_name_KO': 'The west photo file name must have at least 7 characters',
+    'west_photo_max_size_name_KO': 'The west photo file name cannot have more than 50 characters',
+
+    // Errors for article file fields
+    'ficheropdf_min_size_KO': 'PDF file is required',
+    'ficheropdf_format_name_file_KO': 'The PDF file name can only contain letters without accents, ñ, spaces, and dot',
+    'ficheropdf_type_file_KO': 'The file type must be PDF',
+    'ficheropdf_max_size_file_KO': 'The PDF file size cannot exceed 2MB',
+    'ficheropdf_min_size_name_KO': 'The PDF file name must have at least 7 characters',
+    'ficheropdf_max_size_name_KO': 'The PDF file name cannot have more than 20 characters',
+
+    // Generic error messages for files
+    'not_exist_file': 'You must select a file',
+    'type_file_KO': 'File type not allowed',
+    'max_size_file_KO': 'The file size is too large',
+    'format_name_file_KO': 'The file name contains invalid characters',
+
+    //////////////faltan
+    // Mensajes de confirmación para eliminación
+    'confirm_delete_alumnograduacion': '¿Está seguro de que desea eliminar este alumno de graduación? Esta acción no se puede deshacer.',
+    'confirm_delete_articulo': '¿Está seguro de que desea eliminar este artículo? Esta acción no se puede deshacer.',
+
+    // Resultados de búsqueda
+    'search_results_alumnograduacion': 'alumnos de graduación encontrados que coinciden con su búsqueda',
+    'search_results_articulo': 'artículos encontrados que coinciden con su búsqueda',
+
+    // Errores para campos file de ubicación
+    'north_photo_not_exist_file_KO': 'Debe seleccionar un archivo de foto norte',
+    'north_photo_format_name_file_KO': 'El nombre del archivo norte solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'north_photo_type_file_KO': 'El tipo de archivo norte debe ser JPG',
+    'north_photo_max_size_file_KO': 'El tamaño del archivo norte no puede superar 2MB',
+    'north_photo_min_size_name_KO': 'El nombre del archivo norte debe tener al menos 7 caracteres',
+    'north_photo_max_size_name_KO': 'El nombre del archivo norte no puede tener más de 50 caracteres',
+
+    'south_photo_not_exist_file_KO': 'Debe seleccionar un archivo de foto sur',
+    'south_photo_format_name_file_KO': 'El nombre del archivo sur solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'south_photo_type_file_KO': 'El tipo de archivo sur debe ser JPG',
+    'south_photo_max_size_file_KO': 'El tamaño del archivo sur no puede superar 2MB',
+    'south_photo_min_size_name_KO': 'El nombre del archivo sur debe tener al menos 7 caracteres',
+    'south_photo_max_size_name_KO': 'El nombre del archivo sur no puede tener más de 50 caracteres',
+
+    'east_photo_not_exist_file_KO': 'Debe seleccionar un archivo de foto este',
+    'east_photo_format_name_file_KO': 'El nombre del archivo este solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'east_photo_type_file_KO': 'El tipo de archivo este debe ser JPG',
+    'east_photo_max_size_file_KO': 'El tamaño del archivo este no puede superar 2MB',
+    'east_photo_min_size_name_KO': 'El nombre del archivo este debe tener al menos 7 caracteres',
+    'east_photo_max_size_name_KO': 'El nombre del archivo este no puede tener más de 50 caracteres',
+
+    'west_photo_not_exist_file_KO': 'Debe seleccionar un archivo de foto oeste',
+    'west_photo_format_name_file_KO': 'El nombre del archivo oeste solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'west_photo_type_file_KO': 'El tipo de archivo oeste debe ser JPG',
+    'west_photo_max_size_file_KO': 'El tamaño del archivo oeste no puede superar 2MB',
+    'west_photo_min_size_name_KO': 'El nombre del archivo oeste debe tener al menos 7 caracteres',
+    'west_photo_max_size_name_KO': 'El nombre del archivo oeste no puede tener más de 50 caracteres',
+
+    // Errores para campos file de artículo
+    'ficheropdf_min_size_KO': 'El fichero PDF es obligatorio',
+    'ficheropdf_format_name_file_KO': 'El nombre del archivo PDF solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'ficheropdf_type_file_KO': 'El tipo de archivo debe ser PDF',
+    'ficheropdf_max_size_file_KO': 'El tamaño del archivo PDF no puede superar 2MB',
+    'ficheropdf_min_size_name_KO': 'El nombre del archivo PDF debe tener al menos 7 caracteres',
+    'ficheropdf_max_size_name_KO': 'El nombre del archivo PDF no puede tener más de 20 caracteres',
+
+    // Mensajes genéricos de error para archivos
+    'not_exist_file': 'Debe seleccionar un archivo',
+    'type_file_KO': 'Tipo de archivo no permitido',
+    'max_size_file_KO': 'El tamaño del archivo es demasiado grande',
+    'format_name_file_KO': 'El nombre del archivo contiene caracteres no permitidos',
+
+    // Estados de tabla
+    'RECORDSET_DATOS': 'Datos encontrados',
+    'RECORDSET_VACIO': 'No se han encontrado elementos que coincidan con la búsqueda',
+
+    // Modal de error
+    'ERROR_ACTION_MODAL_TITLE': 'Error',
+    'ERROR_ACTION_MODAL_CLOSE': 'Cerrar',
+
+    // Textos estáticos HTML
+    'text_header_article': 'Sección article',
+    'text_footer': 'Pie de página',
+
+    // Mensajes de test
+    'TEST_CORRECTO': 'Prueba correcta',
+    'TEST_INCORRECTO': 'Prueba incorrecta',
+    'PRUEBA_EXITOSA': 'Prueba exitosa',
+    'PRUEBA_FALLIDA': 'Prueba fallida',
+    'NO_HAY_TRADUCCION': 'No hay traducción disponible',
+
+    // Estados de verificación
+    'NO_VERIFICADO': 'No verificado',
+    'METODO_EXISTE': 'Método existe',
+    'METODO_NO_EXISTE': 'Método no existe',
+
+    // Elementos de interfaz
+    'SUBMIT_BUTTON': 'Enviar',
+    'TABLA_RESULTADOS': 'Resultados',
+
+    // Mensajes de error
+    'ERROR_CARGA_IDIOMA': 'Error cargando idioma',
+    'IDIOMA_NO_SOPORTADO': 'Idioma no soportado',
+    'ERROR_UPLOAD_site_north_photo_KO': 'Error cargando foto norte',
+    'ERROR_UPLOAD_site_south_photo_KO': 'Error cargando foto sur',
+    'ERROR_UPLOAD_site_east_photo_KO': 'Error cargando foto oeste',
+    'ERROR_UPLOAD_site_west_photo_KO': 'Error cargando foto este',
+
+    'north_photo_not_exist_file_KO': 'Debe seleccionar un archivo de foto norte',
+    'north_photo_format_name_file_KO': 'El nombre del archivo norte solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'north_photo_type_file_KO': 'El tipo de archivo norte debe ser JPG',
+    'north_photo_max_size_file_KO': 'El tamaño del archivo norte no puede superar 2MB',
+    'north_photo_min_size_name_KO': 'El nombre del archivo norte debe tener al menos 7 caracteres',
+    'north_photo_max_size_name_KO': 'El nombre del archivo norte no puede tener más de 50 caracteres',
+
+
+    'south_photo_not_exist_file_KO': 'Debe seleccionar un archivo de foto sur',
+    'south_photo_format_name_file_KO': 'El nombre del archivo sur solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'south_photo_type_file_KO': 'El tipo de archivo sur debe ser JPG',
+    'south_photo_max_size_file_KO': 'El tamaño del archivo sur no puede superar 2MB',
+    'south_photo_min_size_name_KO': 'El nombre del archivo sur debe tener al menos 7 caracteres',
+    'south_photo_max_size_name_KO': 'El nombre del archivo sur no puede tener más de 50 caracteres',
+
+    'east_photo_not_exist_file_KO': 'Debe seleccionar un archivo de foto este',
+    'east_photo_format_name_file_KO': 'El nombre del archivo este solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'east_photo_type_file_KO': 'El tipo de archivo este debe ser JPG',
+    'east_photo_max_size_file_KO': 'El tamaño del archivo este no puede superar 2MB',
+    'east_photo_min_size_name_KO': 'El nombre del archivo este debe tener al menos 7 caracteres',
+    'east_photo_max_size_name_KO': 'El nombre del archivo este no puede tener más de 50 caracteres',
+
+    'west_photo_not_exist_file_KO': 'Debe seleccionar un archivo de foto oeste',
+    'west_photo_format_name_file_KO': 'El nombre del archivo oeste solo puede contener letras sin acentos ni ñ ni espacios y punto',
+    'west_photo_type_file_KO': 'El tipo de archivo oeste debe ser JPG',
+    'west_photo_max_size_file_KO': 'El tamaño del archivo oeste no puede superar 2MB',
+    'west_photo_min_size_name_KO': 'El nombre del archivo oeste debe tener al menos 7 caracteres',
+    'west_photo_max_size_name_KO': 'El nombre del archivo oeste no puede tener más de 50 caracteres',
+
+    // Labels para campos file en ADD
+    'label_nuevo_site_north_photo_text': 'Nueva Foto Norte',
+    'label_nuevo_site_south_photo_text': 'Nueva Foto Sur',
+    'label_nuevo_site_east_photo_text': 'Nueva Foto Este',
+    'label_nuevo_site_west_photo_text': 'Nueva Foto Oeste',
+
+    // Labels generales que faltan
+    'label_id_site': 'ID Sitio',
+    'label_site_latitud': 'Latitud *',
+    'label_site_longitud': 'Longitud *',
+    'label_site_altitude': 'Altitud *',
+    'label_site_locality': 'Localidad *',
+    'label_site_provider_login': 'Login Proveedor *',
+
+    'SQL_KO': 'SQL_KO',
+    'error_action_msg':'Error en la acción',
+    'error_action_modal': 'error_action_modal',
+    'Entidad no encontrada: persona': 'Entidad no encontrada: persona',
+    'Error al buscar datos: $ is not defined':'Error al buscar datos: $ is not defined'
+
 };

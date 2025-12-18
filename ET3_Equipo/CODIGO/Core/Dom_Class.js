@@ -1,15 +1,19 @@
 class dom extends dom_table {
 
-	constructor() {
+	constructor(){
 		super()
 	}
 
+	colocartodosreadonly(idform) {
+        // Uso el método heredado de dom_table
+        super.colocartodosreadonly(idform);
+    }
 	/**
 	 * Pone la propiedad style.display a mode
 	 * @param {String} id 
 	 * @param {String} mode
 	 */
-	show_element(id, mode) {
+	show_element(id, mode){
 		document.getElementById(id).style.display = mode;
 	}
 
@@ -17,10 +21,10 @@ class dom extends dom_table {
 	 * pone la propiedad style.display del elemento id a none
 	 * @param {String} id 
 	 */
-	hide_element(id) {
+	hide_element(id){
 		document.getElementById(id).style.display = 'none';
 	}
-
+	
 	/**
 	 * 
 	 * Oculta el id y el label_id elementos de un formulario relacionado con un atributo
@@ -29,58 +33,41 @@ class dom extends dom_table {
 	 * @param {String} id 
 	 * 
 	 */
-	hide_element_form(id) {
-		this.hide_element('label_' + id);
+	hide_element_form(id){
+		this.hide_element('label_'+id);
 		this.hide_element(id);
 	}
 
-	mostrar_error_campo(id, rule, param = null) {
+	mostrar_error_campo(id, codigoerror){
 
-		let span = document.getElementById('span_error_' + id);
-		let error_elem = document.getElementById('error_' + id);
-
-		span.style.display = 'inline';
-		// Set common class for dynamic translation finding
-		error_elem.className = 'validation_error';
-		error_elem.setAttribute('data-error-rule', rule);
-
-		if (param !== null) {
-			error_elem.setAttribute('data-error-param', param);
-		} else {
-			error_elem.removeAttribute('data-error-param');
+		document.getElementById('span_error_'+id).style.display = 'inline';
+		document.getElementById('error_'+id).className = codigoerror;
+		if (document.getElementById(id) == null){
+			document.getElementById('label_'+id).style.border = 'solid red 2px';
 		}
-
-		if (document.getElementById(id) == null) {
-			document.getElementById('label_' + id).style.border = 'solid red 2px';
-		}
-		else {
+		else{
 			document.getElementById(id).style.border = 'solid red 2px';
 		}
-		let submit_button = document.getElementById('submit_button');
-		if (submit_button) submit_button.focus();
+		document.getElementById('submit_button').focus();
 		setLang();
 	}
 
+	
 
-
-	mostrar_exito_campo(id) {
-		document.getElementById('span_error_' + id).style.display = 'none';
-		let error_elem = document.getElementById('error_' + id);
-		error_elem.className = '';
-		error_elem.removeAttribute('data-error-rule');
-		error_elem.removeAttribute('data-error-param');
-
-		if (document.getElementById(id) == null) {
-			document.getElementById('label_' + id).style.border = 'solid green 2px';
+	mostrar_exito_campo(id){
+		document.getElementById('span_error_'+id).style.display = 'none';
+		document.getElementById('error_'+id).className = '';
+		if (document.getElementById(id) == null){
+			document.getElementById('label_'+id).style.border = 'solid green 2px';
 		}
-		else {
+		else{
 			document.getElementById(id).style.border = 'solid green 2px';
 
 		}
 		setLang();
 	}
 
-	fillform(formdata, idform) {
+	fillform(formdata, idform){
 		document.getElementById(idform).innerHTML = formdata;
 		document.getElementById(idform).style.display = 'block';
 	}
@@ -93,7 +80,7 @@ class dom extends dom_table {
 	 * @param {String} propiedad 
 	 * @param {String} valor 
 	 */
-	assign_property_value(id, propiedad, valor) {
+	assign_property_value(id, propiedad, valor){
 		document.getElementById(id).setAttribute(propiedad, valor);
 	}
 
@@ -104,23 +91,23 @@ class dom extends dom_table {
 	 * @param {String} id Id del elemento html al que se añadira una clase
 	 * @param {String} classvalue valor de clase a añadir
 	 */
-	assign_class_value(id, classvalue) {
+	assign_class_value(id, classvalue){
 		document.getElementById(id).classList.add(classvalue);
 	}
 
-	remove_class_value(id, partialclassvalue) {
+	remove_class_value(id, partialclassvalue){
 
 		var elemento = document.getElementById(id);
 		var clases = elemento.classList;
-		var regularexpresion = new RegExp(partialclassvalue + '.+?');
-		if (clases.length > 0) {
-			for (var i = 0; i < clases.length; i++) {
-				if (regularexpresion.test(clases[i])) {
+		var regularexpresion = new RegExp(partialclassvalue+'.+?');
+		if (clases.length > 0){
+			for (var i=0;i<clases.length;i++){
+				if (regularexpresion.test(clases[i])){
 					elemento.classList.remove(clases[i]);
 				}
 			}
 		}
-
+		
 	}
 
 
@@ -129,21 +116,21 @@ class dom extends dom_table {
 	 * @param {*} errorMsg 
 	 */
 	abrirModalError(errorMsg) {
-		document.getElementById('error_action_modal').style.display = 'block';
-		document.getElementById('modal_action_overlay').style.display = 'block';
-		document.getElementById('error_action_msg').className = errorMsg;
-		setLang();
-	}
+        document.getElementById('error_action_modal').style.display = 'block';
+        document.getElementById('modal_action_overlay').style.display = 'block';
+        document.getElementById('error_action_msg').className = errorMsg;
+        setLang();
+    }
 
-
+		
 	/**
 	 * cerrar el modal de error de accion
 	 */
-	cerrarModalError() {
-		document.getElementById('error_action_modal').style.display = 'none';
-		document.getElementById('modal_action_overlay').style.display = 'none';
-		document.getElementById('error_action_msg').className = '';
-	}
+    cerrarModalError(){
+        document.getElementById('error_action_modal').style.display = 'none';
+        document.getElementById('modal_action_overlay').style.display = 'none';
+        document.getElementById('error_action_msg').className = '';
+    }
 
 	/**
 	 * crea un elemento de formulario y lo coloca dentro del formulario con el id indicado
@@ -152,13 +139,13 @@ class dom extends dom_table {
 	 * @param {String} tag tag html del documento
 	 * @param {String} tipo tipo de elemento si es un input
 	 */
-	createElement(idform, idelement, tag, tipo) {
+	createElement(idform, idelement, tag, tipo){
 		var elemento = document.createElement(tag);
 		elemento.id = idelement;
 		elemento.type = tipo;
 		document.getElementById(idform).append(elemento);
 	}
-
+	
 
 }
 
@@ -172,22 +159,30 @@ class dom extends dom_table {
  * @param {string} ponerestado 'on'/'off'
  */
 
-function switch_display_mode(id, mode, ponerestado = null) {
+	function switch_display_mode(id,mode, ponerestado=null){
 
-	if (ponerestado == 'on') {
+	if (ponerestado == 'on'){
 		document.getElementById(id).style.display = mode;
 	}
-	else {
-		if (ponerestado == 'off') {
-			document.getElementById(id).style.display = 'none';
+	else{
+		if (ponerestado == 'off'){
+		document.getElementById(id).style.display = 'none';
 		}
-		else {
-			if (document.getElementById(id).style.display == 'none') {
+		else{ 
+			if (document.getElementById(id).style.display == 'none'){
 				document.getElementById(id).style.display = mode;
 			}
-			else {
+			else{
 				document.getElementById(id).style.display = 'none';
 			}
 		}
 	}
+
+
+	//Método para la ET3
+	
+
+
+
+
 }

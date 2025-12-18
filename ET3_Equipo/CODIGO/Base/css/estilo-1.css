@@ -403,7 +403,61 @@ footer {
     font-size: 10pt; /* Tamaño de fuente */
     
     user-select: none; /* Evita selección de texto */
+
+        & > img {
+
+        cursor: pointer; /* Usar el icono de cursor "pointer" */
+        transition: transform 0.3s; /* Transición suave al transformar */
+        user-select: none; /* Evita selección de imagen */
+        -webkit-user-drag: none; /* Impide arrastrar la imagen */
+
+        /* Estilos al pasar el ratón por encima */
+        &:hover {
+            transform: scale(1.2); /* Aumenta el tamaño al 120% */
+        }
+
+        /* Estilos al hacer clic en la imagen */
+        &:active {
+            transform: scale(0.9); /* Reduce el tamaño al 90% */
+        }
+    }
+
+    &  > img {
+    width: 30pt; /* Ancho de img API */
+    height: 20pt; /* Alto de las API */
+    padding-left: 5pt; /* Relleno izquierdo de las API */
+    padding-right: 5pt; /* Relleno derecho de las API */
+    cursor: pointer; /* Usar el icono de cursor "pointer" */
+    transition-property: width, height, padding; /* Propiedades a animar */
+    transition-duration: 300ms; /* Duración de la animación */
+    user-select: none; /* Evita selección de imagen */
+    -webkit-user-drag: none; /* Impide arrastrar la imagen */
+
+    /* 
+        :hover - Estilos al pasar el ratón por encima
+
+        Pseudo-clases CSS: Permiten definir estilos para estados especiales de un elemento.
+        Formato: selector:pseudo-clase { ... }
+        Ejemplos comunes: :hover, :active, :focus, :visited, :first-child, :last-child, etc.
+    */
+    &:hover {
+        width: 40pt; /* Ancho de las API */
+        height: 30pt; /* Alto de las API */
+        padding: 0; /* Sustituye el padding por ancho y alto, para mantener el tamaño */
+    }
+
+    /* :active - Estilos al hacer clic en la imagen */
+    &:active {
+        width: 28pt; /* Ancho de las API */
+        height: 28pt; /* Alto de las API */
+        padding-left: 5pt; /* Relleno izquierdo de las API */
+        padding-right: 5pt; /* Relleno derecho de las API */
+    }
 }
+
+}
+
+
 
 /* 
     Añadimos padding-bottom al body para evitar que el contenido
