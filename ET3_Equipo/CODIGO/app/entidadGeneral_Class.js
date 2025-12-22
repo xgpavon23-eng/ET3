@@ -95,9 +95,19 @@ class entidadGeneral extends EntidadAbstracta {
         // Mostrar formulario
         this.dom.show_element('Div_IU_form', 'block');
 
-        // Si es SHOWCURRENT, hacer todos los campos readonly
-        if (accion === 'SHOWCURRENT') {
+        // Si es SHOWCURRENT o DELETE, hacer todos los campos readonly
+        if (accion === 'SHOWCURRENT' || accion === 'DELETE') {
             this.dom.colocartodosreadonly('form_iu');
+        }
+
+        // Si es EDIT, validar todos los campos para mostrar estado inicial
+        if (accion === 'EDIT') {
+            for (const [nombreAtributo, definicion] of Object.entries(this.estructura.attributes)) {
+                const elemento = document.getElementById(nombreAtributo);
+                if (elemento) {
+                    this.validarCampoIndividual(nombreAtributo, elemento.value, accion);
+                }
+            }
         }
 
         // Aplicar traducciones
@@ -111,7 +121,7 @@ class entidadGeneral extends EntidadAbstracta {
         // Crear label
         const label = document.createElement('label');
         label.htmlFor = fieldId;
-        label.textContent = nombreAtributo.replace(/_/g, ' ') + ': ';
+        label.textContent = nombreAtributo.replace(/_/g, ' ');
         label.id = 'label_' + fieldId;
 
         // Crear elemento según el tipo
@@ -121,16 +131,16 @@ class entidadGeneral extends EntidadAbstracta {
                 elemento = this.crearInput(fieldId, htmlDef, datos, nombreAtributo, accion);
                 break;
             case 'textarea':
-                elemento = this.crearTextarea(fieldId, htmlDef, datos);
+                elemento = this.crearTextarea(fieldId, htmlDef, datos, accion);
                 break;
             case 'select':
                 elemento = this.crearSelect(fieldId, htmlDef, datos, definicion.default_value, accion);
                 break;
             case 'radio':
-                elemento = this.crearRadioGroup(fieldId, htmlDef, datos);
+                elemento = this.crearRadioGroup(fieldId, htmlDef, datos, definicion.default_value, accion);
                 break;
             case 'checkbox':
-                elemento = this.crearCheckbox(fieldId, htmlDef, datos, definicion.default_value);
+                elemento = this.crearCheckbox(fieldId, htmlDef, datos, definicion.default_value, accion);
                 break;
             default:
                 elemento = this.crearInput(fieldId, htmlDef, datos, nombreAtributo, accion);
@@ -166,7 +176,9 @@ class entidadGeneral extends EntidadAbstracta {
 
         // 1. Si es un campo de referecia a archivo (el texto con el nombre: foto_persona)
         if (definicion && definicion.is_file_ref) {
-            input.readOnly = true;
+            if (accion !== 'SEARCH') {
+                input.readOnly = true;
+            }
 
             if (datos && datos[nombreAtributo]) {
                 input.value = datos[nombreAtributo];
@@ -226,6 +238,12 @@ class entidadGeneral extends EntidadAbstracta {
         // Establecer valor
         if (datos && datos[nombreAtributo] !== undefined) {
             input.value = datos[nombreAtributo];
+
+            // Fix dates from DD/MM/YYYY to YYYY-MM-DD
+            if (htmlDef.type === 'date' && /^\d{2}\/\d{2}\/\d{4}$/.test(input.value)) {
+                let parts = input.value.split('/');
+                input.value = `${parts[2]}-${parts[1]}-${parts[0]}`;
+            }
         }
 
         // Establecer tamaño si está definido
@@ -233,10 +251,14 @@ class entidadGeneral extends EntidadAbstracta {
             input.size = htmlDef.component_visible_size;
         }
 
+        if (accion !== 'DELETE' && accion !== 'SHOWCURRENT') {
+            input.onblur = () => this.validarCampoIndividual(nombreAtributo, input.value, accion);
+        }
+
         return input;
     }
 
-    crearTextarea(id, htmlDef, datos) {
+    crearTextarea(id, htmlDef, datos, accion) {
         const textarea = document.createElement('textarea');
         textarea.id = id;
         textarea.name = id;
@@ -246,6 +268,10 @@ class entidadGeneral extends EntidadAbstracta {
 
         if (datos && datos[id] !== undefined) {
             textarea.value = datos[id];
+        }
+
+        if (accion !== 'DELETE' && accion !== 'SHOWCURRENT') {
+            textarea.onblur = () => this.validarCampoIndividual(id, textarea.value, accion);
         }
 
         return textarea;
@@ -291,15 +317,25 @@ class entidadGeneral extends EntidadAbstracta {
             });
         }
 
+        if (accion !== 'DELETE' && accion !== 'SHOWCURRENT') {
+            select.onblur = () => this.validarCampoIndividual(id, select.value, accion);
+        }
+
         return select;
     }
 
-    crearRadioGroup(id, htmlDef, datos) {
+    crearRadioGroup(id, htmlDef, datos, defaultValue, accion) {
         const container = document.createElement('div');
         container.id = id + '_group';
+        container.className = 'radio_group';
 
         if (htmlDef.options && Array.isArray(htmlDef.options)) {
             htmlDef.options.forEach((opcion, index) => {
+                const optionWrapper = document.createElement('div');
+                optionWrapper.style.display = 'flex';
+                optionWrapper.style.alignItems = 'center';
+                optionWrapper.style.marginRight = '20px'; // Add spacing between options logic or rely on CSS
+
                 const radioId = id + '_' + index;
 
                 const radio = document.createElement('input');
@@ -312,9 +348,14 @@ class entidadGeneral extends EntidadAbstracta {
                 const atributoReal = id.replace(/^nuevo_/, '');
                 if (datos && datos[atributoReal] === opcion) {
                     radio.checked = true;
-                } else if (!datos && definicion.default_value === opcion && accion !== 'SEARCH') {
-                    // Added default value logic for radios too if we want, but user request was generic "enums"
+                } else if (!datos && defaultValue === opcion && accion !== 'SEARCH') {
                     radio.checked = true;
+                }
+
+                if (accion !== 'DELETE' && accion !== 'SHOWCURRENT') {
+                    radio.onchange = () => {
+                        this.validarCampoIndividual(id, radio.value, accion);
+                    };
                 }
 
                 const label = document.createElement('label');
@@ -322,16 +363,74 @@ class entidadGeneral extends EntidadAbstracta {
                 label.textContent = opcion;
                 label.id = 'label_' + opcion;
 
-                container.appendChild(radio);
-                container.appendChild(label);
-                container.appendChild(document.createElement('br'));
+                optionWrapper.appendChild(radio);
+                optionWrapper.appendChild(label);
+
+                container.appendChild(optionWrapper);
             });
         }
 
         return container;
     }
 
-    crearCheckbox(id, htmlDef, datos, defaultValue) {
+    crearCheckbox(id, htmlDef, datos, defaultValue, accion) {
+        // Si hay opcione definidas, crear grupo de checkboxes
+        if (htmlDef.options && Array.isArray(htmlDef.options)) {
+            const container = document.createElement('div');
+            container.id = id + '_group';
+            container.className = 'checkbox_group';
+
+            htmlDef.options.forEach((opcion, index) => {
+                const optionWrapper = document.createElement('div');
+                optionWrapper.style.display = 'flex';
+                optionWrapper.style.alignItems = 'center';
+                optionWrapper.style.marginRight = '20px';
+
+                const checkId = id + '_' + index;
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = checkId;
+                checkbox.name = id; // O id + '[]' si el back lo espera asi
+                checkbox.value = opcion;
+
+                // Para checkboxes multiples, datos[id] debería ser un array o string
+                // Asumimos array para la estructura nueva, o string?
+                // La estructura original 'menu_persona' tiene options.
+                // Logica de seleccion:
+                const atributoReal = id.replace(/^nuevo_/, '');
+                // Caso 1: Array de valores
+                if (datos && datos[atributoReal] && Array.isArray(datos[atributoReal]) && datos[atributoReal].includes(opcion)) {
+                    checkbox.checked = true;
+                }
+                // Caso 2: String exacto
+                else if (datos && datos[atributoReal] === opcion) {
+                    checkbox.checked = true;
+                }
+                // Caso 3: String separado por comas
+                else if (datos && typeof datos[atributoReal] === 'string' && datos[atributoReal].split(',').includes(opcion)) {
+                    checkbox.checked = true;
+                }
+
+                if (accion !== 'DELETE' && accion !== 'SHOWCURRENT') {
+                    checkbox.onchange = () => {
+                        this.validarCampoIndividual(id, checkbox.value, accion);
+                    };
+                }
+
+                const label = document.createElement('label');
+                label.htmlFor = checkId;
+                label.textContent = opcion;
+                label.id = 'label_' + checkId; // Unique label id
+
+                optionWrapper.appendChild(checkbox);
+                optionWrapper.appendChild(label);
+
+                container.appendChild(optionWrapper);
+            });
+            return container;
+        }
+
+        // Logica original para checkbox simple (boolean)
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = id;
@@ -422,6 +521,21 @@ class entidadGeneral extends EntidadAbstracta {
         }
 
         const errorSpan = document.getElementById('error_' + nombreAtributo);
+        const inputElement = document.getElementById(nombreAtributo);
+
+        // Helper to set validity
+        const setValidity = (isValid) => {
+            if (inputElement) {
+                if (isValid) {
+                    inputElement.classList.add('input-valid');
+                    inputElement.classList.remove('input-invalid');
+                } else {
+                    inputElement.classList.add('input-invalid');
+                    inputElement.classList.remove('input-valid');
+                }
+            }
+        };
+
         if (!errorSpan) return true;
 
         errorSpan.textContent = '';
@@ -429,19 +543,23 @@ class entidadGeneral extends EntidadAbstracta {
         // Validaciones básicas
         if (validaciones.min_size && valor.length < validaciones.min_size) {
             errorSpan.textContent = `Mínimo ${validaciones.min_size} caracteres`;
+            setValidity(false);
             return false;
         }
 
         if (validaciones.max_size && valor.length > validaciones.max_size) {
             errorSpan.textContent = `Máximo ${validaciones.max_size} caracteres`;
+            setValidity(false);
             return false;
         }
 
         if (validaciones.exp_reg && valor && !new RegExp(validaciones.exp_reg).test(valor)) {
             errorSpan.textContent = 'Formato incorrecto';
+            setValidity(false);
             return false;
         }
 
+        setValidity(true);
         return true;
     }
 }

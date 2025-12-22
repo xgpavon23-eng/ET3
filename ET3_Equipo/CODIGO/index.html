@@ -20,8 +20,7 @@
 	<!-- clases entidades -->
 	<script type="text/javascript" src="./app/entidadGeneral_Class.js"></script>
 	<!-- clases de test -->
-	<script type="text/javascript" src="./Test/Unit/Unit_Test_Class.js"></script>
-	<script type="text/javascript" src="./Test/Data/Data_Test_Class.js"></script>
+
 	<!-- ficheros de testing-->
 
 	<!-- Estructuras de entidades -->
@@ -131,14 +130,11 @@
 				<img id="botonADD" src="./iconos/ADD.png" onclick="entidad.createForm_ADD();" />
 				<img id="botonSEARCH" src="./iconos/SEARCH.png" onclick="entidad.createForm_SEARCH();" />
 
-				<label id="label_seleccioncolumnas" class="label_seleccioncolumnas"></label>
+				<label id="label_seleccioncolumnas" class="label_seleccioncolumnas" for="seleccioncolumnas"></label>
 				<select id="seleccioncolumnas" multiple>
 				</select>
 
-				<img id="botonTEST_UNIT" src="./iconos/TEST_UNIT.png"
-					onclick="test = new Unit_Test(entidad.nombreentidad)" />
-				<img id="botonTEST_DATA" src="./iconos/TEST.png"
-					onclick="test = new Data_Test(eval(entidad.nombreentidad))" />
+
 
 			</div>
 		</section>
