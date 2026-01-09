@@ -1,17 +1,389 @@
-/*
+/* Variables CSS globales */
+:root {
+    --light-color: #EFFEFF;
+    --medium-color: #a1c2c5;
+    --dark-color: #0E2C31;
+    --emphasis-color-1: #5ba0a5;
+    --emphasis-color-2: #d0f1f4;
+}
 
-index.html
-divs
+/* Selector universal - Aplica estilos a todos los elementos */
+* {
+    color: var(--dark-color);
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
 
-*/
+/* Estilos base del cuerpo */
+body {
+    background-color: var(--light-color);
+    margin: 0;
+    padding-bottom: 30pt;
+    /* Para tener en cuenta el fixed footer */
+}
+
+/* Estilo para elementos con borde */
 .bordeado {
-    border-width: 1;
+    border-width: 1px;
     border-style: solid;
 }
 
+/* Cabecera principal */
 #header_page {
-    font-size: 60;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--dark-color);
+    padding: 16pt;
+    border: 0;
+    user-select: none;
+}
+
+/* Título en la cabecera */
+#header_page>span {
+    transition: font-size 300ms;
+    flex-grow: 1;
+    font-size: 40pt;
+    text-align: left;
+    font-weight: bold;
+    color: var(--light-color);
+}
+
+/* Imágenes en la cabecera (banderas de idiomas) */
+#header_page>img {
+    width: 30pt;
+    height: 30pt;
+    padding-left: 5pt;
+    padding-right: 5pt;
+    cursor: pointer;
+    transition-property: width, height, padding;
+    transition-duration: 300ms;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+#header_page>img:hover {
+    width: 40pt;
+    height: 40pt;
+    padding: 0;
+}
+
+#header_page>img:active {
+    width: 28pt;
+    height: 28pt;
+    padding-left: 5pt;
+    padding-right: 5pt;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 600pt) {
+    #header_page>span {
+        font-size: 30pt;
+    }
+}
+
+/* Barra de navegación */
+nav {
     text-align: center;
+    padding: 8pt;
+    font-size: 16pt;
+    background-color: var(--emphasis-color-1);
+    border: 0;
+    user-select: none;
+}
+
+nav>span {
+    display: block;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+nav>span:hover {
+    text-decoration: underline;
+}
+
+/* Menú desplegable */
+#div-menu {
+    overflow: hidden;
+    padding: 0;
+}
+
+#div-menu>ol {
+    margin: 0;
+    padding: 0;
+    border-left: var(--emphasis-color-1) 2pt solid;
+    border-right: var(--emphasis-color-1) 2pt solid;
+}
+
+#div-menu li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#div-menu li span {
+    display: block;
+    height: 35pt;
+    line-height: 20pt;
+    transition-property: height, padding-bottom, padding-top;
+    transition-duration: 500ms;
+    overflow: hidden;
+    margin: 0;
+    padding-bottom: 8pt;
+    padding-top: 8pt;
+    padding-left: 20pt;
+    border-bottom: var(--emphasis-color-1) 2pt solid;
+    cursor: pointer;
+    font-size: 14pt;
+    user-select: none;
+}
+
+#div-menu li:first-child span {
+    padding-top: 8pt;
+}
+
+#div-menu.hidden li span {
+    height: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    border: 0;
+}
+
+#div-menu li span:hover {
+    background-color: var(--emphasis-color-2);
+}
+
+#div-menu li.disabled span {
+    cursor: not-allowed;
+    background-color: lightgray;
+    color: rgb(52, 52, 52);
+}
+
+/* Título de la página de gestión */
+#title_page {
+    text-align: center;
+    font-size: 20pt;
+    text-decoration: underline;
+    padding: 10pt;
+    border: 0;
+    user-select: none;
+}
+
+/* Cabecera de gestión */
+#IU_manage_head {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--emphasis-color-2);
+    border: 2pt solid var(--emphasis-color-1);
+    border-top: 0;
+    padding: 10pt;
+}
+
+/* Contenedor de controles (añadir, buscar, etc.) */
+#add_search_columns {
+    display: grid;
+    grid-template-columns: 40pt 40pt 40pt 40pt auto 100pt;
+    grid-template-areas:
+        "add search test_unit test select_title select_cols";
+    row-gap: 10pt;
+    place-items: center;
+    position: relative;
+}
+
+/* Estilos para los elementos dentro de los controles */
+#add_search_columns>label {
+    grid-area: select_title;
+    text-align: right;
+    width: 100%;
+    margin-right: 10pt;
+    font-weight: bold;
+    user-select: none;
+}
+
+#add_search_columns>label::after {
+    content: ":";
+}
+
+#add_search_columns>select {
+    grid-area: select_cols;
+    position: absolute;
+    top: 10pt;
+    transition: height 0.3s;
+    height: 16pt;
+    padding: 2pt;
+    min-width: 105pt;
+    overflow-y: scroll;
+    z-index: 10;
+    background-color: var(--light-color);
+    border: 2pt solid var(--emphasis-color-1);
+    user-select: none;
+}
+
+#add_search_columns>select:hover {
+    height: 100pt;
+}
+
+#add_search_columns>img {
+    cursor: pointer;
+    transition: transform 0.3s;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+#add_search_columns>img:hover {
+    transform: scale(1.2);
+}
+
+#add_search_columns>img:active {
+    transform: scale(0.9);
+}
+
+/* Botones específicos */
+#botonTEST_UNIT {
+    grid-area: test_unit;
+    width: 30pt;
+    height: 30pt;
+}
+
+#botonTEST {
+    grid-area: test;
+}
+
+/* Artículos */
+article {
+    border: 2pt solid var(--emphasis-color-1);
+    border-top: 0;
+    text-align: center;
+    padding: 10pt;
+}
+
+article::selection {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+
+/* Tabla principal de gestión */
+#IU_manage_table {
+    width: 100%;
+    border: 2pt solid var(--emphasis-color-1);
+    border-top: 0;
+    overflow: auto;
+}
+
+#IU_manage_table table {
+    width: 100%;
+    border: 6pt solid var(--light-color);
+}
+
+#IU_manage_table th {
+    padding: 10pt;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    user-select: none;
+}
+
+#IU_manage_table th:first-child {
+    border-top-left-radius: 10pt;
+}
+
+#IU_manage_table th:last-child {
+    border-top-right-radius: 10pt;
+}
+
+#IU_manage_table tr td {
+    text-align: center;
+    transition: background-color 0.1s;
+}
+
+#IU_manage_table tr td img {
+    transition: transform 0.3s;
+    transform: scale(0.8);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+#IU_manage_table tr td img:hover {
+    transform: scale(1.0);
+}
+
+#IU_manage_table tr td img:active {
+    transform: scale(0.72);
+}
+
+#IU_manage_table tr td {
+    position: relative;
+}
+
+#IU_manage_table tr td a {
+    position: absolute;
+    top: 1pt;
+    right: 0;
+}
+
+#IU_manage_table tr td:has(a) {
+    padding-right: 36pt;
+}
+
+#IU_manage_table tr:nth-child(even) {
+    background-color: var(--emphasis-color-2);
+}
+
+#IU_manage_table tr:hover td {
+    background-color: var(--medium-color);
+}
+
+#IU_manage_table tr:last-child td:first-child {
+    border-bottom-left-radius: 10pt;
+}
+
+#IU_manage_table tr:last-child td:last-child {
+    border-bottom-right-radius: 10pt;
+}
+
+#IU_manage_table tr::selection {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+
+/* Tabla de resultados de test */
+#Div_IU_Test {
+    width: 100%;
+    border: 0;
+    overflow: auto;
+}
+
+#Div_IU_Test * {
+    font-family: monospace;
+    font-size: 12pt;
+}
+
+#tablaresultadostest {
+    margin-top: 10pt;
+    width: 100%;
+    border: 6pt solid var(--light-color);
+}
+
+#tablaresultadostest th {
+    padding: 10pt;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    user-select: none;
+}
+
+#tablaresultadostest th:first-child {
+    border-top-left-radius: 10pt;
+}
+
+#tablaresultadostest th:last-child {
+    border-top-right-radius: 10pt;
+}
+
+#tablaresultadostest tr td {
+    text-align: center;
+    transition: background-color 0.1s;
+    padding: 5pt;
 }
 
 #tablaresultadostest tbody tr th {
@@ -19,24 +391,68 @@ divs
     word-wrap: break-word;
 }
 
-.div_IU_form {
-    width: 100%;
-    /*Toma el 100% del ancho de la página*/
-    height: 100%;
-    /*Toma el 100% del alto de la página*/
-    position: fixed;
-    /*Con este código hacemos que el contenedor se mantenga en la pantalla y para que tome las dimensiones del body y no de la entrada*/
-    background-color: rgba(250, 249, 249, 0.95);
-    /*Color de fondo, incluye opacidad del 90%*/
-    top: 0;
-    /*Position superior*/
-    left: 0;
-    /*Posición lateral*/
-    z-index: 10;
-    /*Evitamos que algún elemento del blog sobreponga la ventana modal*/
-
+#tablaresultadostest tr:nth-child(even) {
+    background-color: var(--emphasis-color-2);
 }
 
+#tablaresultadostest tr:hover td {
+    background-color: var(--medium-color);
+}
+
+#tablaresultadostest tr:last-child td:first-child {
+    border-bottom-left-radius: 10pt;
+}
+
+#tablaresultadostest tr:last-child td:last-child {
+    border-bottom-right-radius: 10pt;
+}
+
+#tablaresultadostest tr::selection {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+
+/* Resultados de test */
+#IU_Test_result_nofile,
+#IU_Test_result_file {
+    border: 2pt solid var(--emphasis-color-1);
+    border-top: 0;
+}
+
+#IU_Test_result_nofile *,
+#IU_Test_result_file * {
+    font-size: 10pt;
+}
+
+#IU_Test_result_nofile table,
+#IU_Test_result_file table {
+    margin-top: 0;
+}
+
+#IU_Test_result_nofile td,
+#IU_Test_result_nofile th,
+#IU_Test_result_file td,
+#IU_Test_result_file th {
+    max-width: 40pt;
+    overflow-wrap: break-word;
+}
+
+/* Contenedor del formulario modal */
+.div_IU_form {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(250, 249, 249, 0.95);
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+#Div_IU_form {
+    border: 0;
+}
+
+/* Contenido del formulario */
 .contenidoForm {
     background: rgba(217, 213, 213, 0.95);
     position: absolute;
@@ -53,6 +469,7 @@ divs
     scroll-behavior: smooth;
 }
 
+/* Estilos específicos para formularios */
 .formulario {
     top: 20px;
     position: relative;
@@ -63,7 +480,6 @@ divs
     position: relative;
     height: 100px;
     width: 100%;
-
     background: #ffff99;
     color: #333;
 }
@@ -73,13 +489,282 @@ divs
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-
     font-weight: bold;
 }
 
-/*
-modal error
-*/
+/* Estilos para el contenido del formulario modal */
+.contenidoForm {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    border-radius: 20pt;
+    width: min(600pt, 90%);
+    overflow: hidden;
+    border-width: 2pt;
+    box-shadow: 0 4pt 8pt 0 rgba(0, 0, 0, 0.2);
+    background-color: var(--light-color);
+}
+
+.contenidoForm .class_titulo_form {
+    background-color: var(--dark-color);
+    height: 15%;
+    box-shadow: 0 4pt 8pt 0 rgba(0, 0, 0, 0.4);
+}
+
+.contenidoForm .class_titulo_form span {
+    color: var(--light-color);
+    font-size: 18pt;
+    text-align: center;
+    font-weight: bold;
+    user-select: none;
+}
+
+.contenidoForm #contenedor_IU_form {
+    width: 100%;
+    max-height: 72%;
+    overflow: auto;
+}
+
+.contenidoForm form {
+    top: 0;
+    left: 0;
+    padding: 20pt;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Elementos de formulario */
+.contenidoForm label {
+    width: 100%;
+    margin-top: 10pt;
+    margin-bottom: 5pt;
+    font-weight: bold;
+    user-select: none;
+}
+
+.contenidoForm label::after {
+    content: ":";
+}
+
+.contenidoForm input {
+    width: 100%;
+    padding: 5pt;
+    padding-left: 15pt;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
+    border: 2pt solid var(--emphasis-color-1);
+    border-radius: 20pt;
+    font-size: 14pt;
+}
+
+.contenidoForm input[type="file"] {
+    padding-left: 10pt;
+    font-size: 12pt;
+    background-color: var(--light-color);
+    cursor: pointer;
+    user-select: none;
+}
+
+.contenidoForm textarea {
+    width: 100%;
+    padding: 5pt;
+    padding-left: 15pt;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
+    border: 2pt solid var(--emphasis-color-1);
+    border-radius: 20pt;
+    resize: vertical;
+    font-size: 14pt;
+}
+
+.contenidoForm select {
+    width: 100%;
+    padding: 5pt;
+    padding-left: 15pt;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
+    border: 2pt solid var(--emphasis-color-1);
+    border-radius: 20pt;
+    font-size: 14pt;
+}
+
+/* Grupos de checkboxes y radios */
+.contenidoForm .checkbox_group,
+.contenidoForm .radio_group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-left: 30pt;
+    margin-top: 10pt;
+}
+
+.contenidoForm .checkbox_group *,
+.contenidoForm .radio_group * {
+    width: auto;
+}
+
+.contenidoForm input[type="checkbox"],
+.contenidoForm input[type="radio"] {
+    --size: 20pt;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: var(--size);
+    height: var(--size);
+    appearance: none;
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.contenidoForm input[type="checkbox"]::before,
+.contenidoForm input[type="radio"]::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: var(--size);
+    height: var(--size);
+    border: 2pt solid var(--emphasis-color-1);
+}
+
+.contenidoForm input[type="checkbox"]::before {
+    border-radius: 4pt;
+}
+
+.contenidoForm input[type="radio"]::before {
+    border-radius: 50%;
+}
+
+.contenidoForm input[type="checkbox"]::after {
+    content: "✓";
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: var(--size);
+    height: var(--size);
+    opacity: 0;
+    z-index: -4;
+    font-size: calc(var(--size) - 6pt);
+    color: var(--light-color);
+    background-color: var(--emphasis-color-1);
+    border-radius: 4pt;
+}
+
+.contenidoForm input[type="radio"]::after {
+    content: "●";
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: var(--size);
+    height: var(--size);
+    opacity: 0;
+    z-index: -4;
+    font-size: calc(var(--size) - 3.5pt);
+    color: var(--emphasis-color-1);
+    background-color: var(--light-color);
+    border-radius: 50%;
+}
+
+.contenidoForm input[type="checkbox"]:checked::after,
+.contenidoForm input[type="radio"]:checked::after {
+    opacity: 1;
+}
+
+.contenidoForm input[type="checkbox"]:focus,
+.contenidoForm input[type="radio"]:focus {
+    outline: none;
+    transform: scale(1.2);
+}
+
+.contenidoForm input[type="checkbox"]:focus::before,
+.contenidoForm input[type="radio"]:focus::before {
+    border-color: var(--dark-color);
+}
+
+.contenidoForm input[type="checkbox"]:hover,
+.contenidoForm input[type="radio"]:hover {
+    transform: scale(1.2);
+}
+
+.contenidoForm input[type="checkbox"]:active,
+.contenidoForm input[type="radio"]:active {
+    transform: scale(0.9);
+}
+
+.contenidoForm .checkbox_group label,
+.contenidoForm .radio_group label {
+    margin-left: 10pt;
+    user-select: none;
+}
+
+.contenidoForm .checkbox_group label::after,
+.contenidoForm .radio_group label::after {
+    content: "";
+}
+
+/* Enlaces y botones en formularios */
+.contenidoForm a {
+    font-style: italic;
+    color: red;
+}
+
+.contenidoForm>img,
+.contenidoForm a:has(img) {
+    align-self: center;
+    background-color: var(--emphasis-color-2);
+    box-shadow: 0 4pt 8pt 0 rgba(0, 0, 0, 0.2);
+    padding: 30pt;
+    padding-bottom: 3pt;
+    padding-top: 0pt;
+    margin-bottom: 10pt;
+    border-radius: 10pt;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform 0.3s;
+}
+
+.contenidoForm>img:hover,
+.contenidoForm a:has(img):hover {
+    transform: scale(1.1);
+}
+
+.contenidoForm a:has(img) {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor de botón de confirmación */
+#div_boton {
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+#div_boton button {
+    width: 80%;
+    border: 0;
+    border-radius: 20pt;
+    margin-top: 10pt;
+    box-shadow: 0 4pt 8pt 0 rgba(0, 0, 0, 0.2);
+    background-color: var(--emphasis-color-2);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+#div_boton button:hover {
+    transform: scale(1.03);
+}
+
+/* MODALES DE ERROR*/
 
 #error_action_modal {
     position: fixed;
@@ -105,119 +790,65 @@ modal error
     z-index: 9998;
 }
 
-/****************Estilos para ET3 ****************/
+/*PIE DE PÁGINA*/
 
-/* Estilos para formularios dinámicos */
-
-#info-equipo {
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    /* Ocupa todo el ancho del contenedor */
+    padding: 5pt;
     border: 0;
-    /* Sin borde */
-    box-sizing: border-box;
-    /* Incluye el borde en el tamaño total */
-
-    overflow: auto;
-    /* Añade scroll si el contenido desborda */
-    background-color: var(--light-color);
-
-    & * {
-        font-family: monospace;
-        font-size: 12pt;
-    }
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 10pt;
+    user-select: none;
 }
 
-/* Estilos para la tabla dentro del contenedor */
-.tabla-equipo {
-    margin-top: 10pt;
-    width: 100%;
-    /* Ocupa todo el ancho del contenedor */
-
-    /*border: 6pt solid var(--light-color);  Borde exterior de la tabla */
-
-    /* Estilos para las celdas de encabezado */
-    & th {
-        padding: 10pt;
-        /* Relleno */
-        background-color: var(--dark-color);
-        /* Color de fondo */
-        color: var(--light-color);
-        /* Color de texto */
-        user-select: none;
-        /* Evita selección de texto */
-
-
-    }
-
-    /* Estilos para las filas de la tabla */
-    & tr {
-
-        /* Estilos para las celdas de datos */
-        & td {
-            text-align: center;
-            /* Alinear texto al centro */
-            transition: background-color 0.1s;
-            /* Transición suave al cambiar color fondo */
-            padding: 5pt;
-        }
-
-        /* Pseudo-clase - nth-child() - Permite seleccionar elementos en función de su posición entre sus hermanos.
-            En este caso, se usa para aplicar estilos alternos a las filas pares e impares. */
-        &:nth-child(even) {
-            background-color: var(--emphasis-color-2);
-            /* Color de fondo para filas pares */
-        }
-
-        /* Estilo para las celdas cuando se pasa el ratón por encima DE LA FILA tr */
-        &:hover td {
-            background-color: var(--medium-color);
-            /* Color de fondo */
-        }
-
-
-        /* Estilo para el texto seleccionado dentro de las celdas */
-        &::selection {
-            background-color: var(--dark-color);
-            /* Color de fondo */
-            color: var(--light-color);
-            /* Color de texto */
-        }
-    }
+footer>img {
+    cursor: pointer;
+    transition: transform 0.3s;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
-
-
-#datos-equipo {
-    /*  border: 2pt solid var(--emphasis-color-1); Borde */
-    border-top: 0;
-
-    & * {
-        font-size: 10pt;
-    }
-
-    & table {
-        margin-top: 0;
-
-        & td,
-        th {
-            max-width: 40pt;
-            overflow-wrap: break-word;
-        }
-    }
+footer>img:hover {
+    transform: scale(1.2);
 }
 
-.text_titulo_menu {
-    margin-top: 15px;
+footer>img:active {
+    transform: scale(0.9);
 }
 
-/* estilos API */
-:root {
-    --light-color: #EFFEFF;
-    --medium-color: #a1c2c5;
-    --dark-color: #0E2C31;
-    --emphasis-color-1: #5ba0a5;
-    --emphasis-color-2: #d0f1f4;
+footer>img {
+    width: 30pt;
+    height: 20pt;
+    padding-left: 5pt;
+    padding-right: 5pt;
+    cursor: pointer;
+    transition-property: width, height, padding;
+    transition-duration: 300ms;
+    user-select: none;
+    -webkit-user-drag: none;
 }
+
+footer>img:hover {
+    width: 40pt;
+    height: 30pt;
+    padding: 0;
+}
+
+footer>img:active {
+    width: 28pt;
+    height: 28pt;
+    padding-left: 5pt;
+    padding-right: 5pt;
+}
+
+/* SECCIÓN API Y EQUIPO*/
 
 .api-section {
     margin: 20px;
@@ -250,1459 +881,67 @@ th {
     background-color: var(--light-color);
 }
 
-/*
-Estructura de selectores CSS y estilos:
-
-[selector] (, [selector] ... ) {
-    propiedad: valor;
-    propiedad: valor;
-    ...
-
-    & [selector_anidado] { 
-        // Â¡El espacio (o su ausencia) entre el & y el selector es importante!
-        // Indica si seguimos en el mismo nivel o bajamos uno en la jerarquÃ­a
-
-        propiedad: valor;
-        propiedad: valor;
-        ...
-    }
-    ...
-}
-*/
-
-/* 
-    Selector :root - Nos permite definir variables CSS globales.
-    AsÃ­ podemos cambiar los colores de toda la web fÃ¡cilmente, por ejemplo.
-    
-    El formato para definir variables es:
-        --nombre-variable: valor;
-    El doble guion al inicio es obligatorio.
-    
-    Para usar una variable, se usa la funciÃ³n var():
-    color: var(--nombre-variable);
-*/
-:root {
-    --light-color: #EFFEFF;
-    --medium-color: #a1c2c5;
-    --dark-color: #0E2C31;
-    --emphasis-color-1: #5ba0a5;
-    --emphasis-color-2: #d0f1f4;
-}
-
-/* 
-    Selector universal * - Aplica estilos a todos los elementos de la pÃ¡gina, 
-    individualmente (En ocasiones, los elementos tambiÃ©n heredan estilos de sus padres,
-    pero en este caso forzamos la aplicaciÃ³n de estilos a cada uno individualmente).
-*/
-* {
-    color: var(--dark-color);
-    /* Color de texto por defecto */
-    font-family: sans-serif;
-    /* Fuente por defecto */
-}
-
-/*
-    Selectores de elementos HTML - Aplica estilos a todos los elementos de ese tipo.
-*/
-body {
-    /* Estilos del body */
-    background-color: var(--light-color);
-    /* Color de fondo */
-    margin: 0;
-    /* Elimina el margen por defecto del body */
-}
-
-/*
-    Selectores de ID (#id) - Aplica estilos al elemento con ese ID.
-*/
-#header_page {
-    display: flex;
-    /* DistribuciÃ³n flexible de elementos */
-    flex-direction: row;
-    /* Distribuye elementos en fila */
-    align-items: center;
-    /* Centra verticalmente los elementos */
-    background-color: var(--dark-color);
-    /* Color de fondo del header */
-    padding: 16pt;
-    /* Relleno del header */
-    border: 0;
-    /* Sin bordes */
-    user-select: none;
-    /* Evita selecciÃ³n de texto */
-}
-
-/*
-    Selector de hijo directo (>) - Aplica estilos a los elementos 
-    que son hijos directos del elemento padre.
-*/
-#header_page>span {
-    transition: font-size 300ms;
-    /* TransiciÃ³n suave al cambiar tamaÃ±o fuente */
-    flex-grow: 1;
-    /* Crece para ocupar todo el ancho posible */
-    font-size: 40pt;
-    /* TamaÃ±o fuente tÃ­tulo web */
-    text-align: left;
-    /* Alinear tÃ­tulo a la izquierda */
-    font-weight: bold;
-    /* Negrita */
-    color: var(--light-color);
-    /* Color de texto del header */
-}
-
-/*
-    Media query para pantallas pequeÃ±as
-    Las medias queries permiten aplicar estilos CSS
-    dependiendo de las caracterÃ­sticas del dispositivo,
-    ejemplo: tamaÃ±o de pantalla, orientaciÃ³n, resoluciÃ³n, etc.
-*/
-@media (max-width: 600pt) {
-
-    /* 
-        Si la pantalla es menor o igual a 600pt de ancho aplica este estilo, 
-        reduciendo el tamaÃ±o de la fuente del tÃ­tulo de la web para que se vea bien.
-    */
-    #header_page>span {
-        font-size: 30pt;
-        /* TamaÃ±o fuente tÃ­tulo web */
-
-        /* Formas de indicar tamaÃ±os:
-            - pt: puntos (1pt = 1/72 pulgadas)
-            - px: pÃ­xeles (1px = 1 pÃ­xel de la pantalla)
-            - em: unidades relativas al tamaÃ±o de fuente actual (1em = tamaÃ±o fuente actual)
-            - %: porcentaje relativo a su contenedor padre
-        */
-    }
-}
-
-/* Estilos para las banderas de idiomas en el header */
-#header_page>img {
-    width: 30pt;
-    /* Ancho de las banderas */
-    height: 30pt;
-    /* Alto de las banderas */
-    padding-left: 5pt;
-    /* Relleno izquierdo de las banderas */
-    padding-right: 5pt;
-    /* Relleno derecho de las banderas */
-    cursor: pointer;
-    /* Usar el icono de cursor "pointer" */
-    transition-property: width, height, padding;
-    /* Propiedades a animar */
-    transition-duration: 300ms;
-    /* DuraciÃ³n de la animaciÃ³n */
-    user-select: none;
-    /* Evita selecciÃ³n de imagen */
-    -webkit-user-drag: none;
-    /* Impide arrastrar la imagen */
-
-    /* 
-        :hover - Estilos al pasar el ratÃ³n por encima
-
-        Pseudo-clases CSS: Permiten definir estilos para estados especiales de un elemento.
-        Formato: selector:pseudo-clase { ... }
-        Ejemplos comunes: :hover, :active, :focus, :visited, :first-child, :last-child, etc.
-    */
-    &:hover {
-        width: 40pt;
-        /* Ancho de las banderas */
-        height: 40pt;
-        /* Alto de las banderas */
-        padding: 0;
-        /* Sustituye el padding por ancho y alto, para mantener el tamaÃ±o */
-    }
-
-    /* :active - Estilos al hacer clic en la imagen */
-    &:active {
-        width: 28pt;
-        /* Ancho de las banderas */
-        height: 28pt;
-        /* Alto de las banderas */
-        padding-left: 5pt;
-        /* Relleno izquierdo de las banderas */
-        padding-right: 5pt;
-        /* Relleno derecho de las banderas */
-    }
-}
-
-/* Estilos para la barra de navegaciÃ³n (Opciones)*/
-nav {
-    text-align: center;
-    /* Alinear texto opciones al centro */
-    padding: 8pt;
-    /* AÃ±adir relleno */
-    font-size: 16pt;
-    /* TamaÃ±o fuente opciones */
-    background-color: var(--emphasis-color-1);
-    /* Color de fondo */
-    border: 0;
-    /* Sin bordes */
-    user-select: none;
-    /* Evita selecciÃ³n de texto */
-}
-
-/* Estilos para el elemento clickable dentro de la barra de navegaciÃ³n */
-nav>span {
-    display: block;
-    /* Mostrar como bloque para ocupar todo el ancho */
-    cursor: pointer;
-    /* Usar el icono de cursor "pointer" */
-    text-transform: uppercase;
-    /* Convertir texto a mayÃºsculas */
-    font-weight: bold;
-    /* Negrita */
-
-    /* :hover - Estilos al pasar el ratÃ³n por encima */
-    &:hover {
-        text-decoration: underline;
-        /* Subrayar el texto */
-    }
-}
-
-/* Estilos para las opciones del menÃº */
-#div-menu {
-    overflow: hidden;
-    /* Ocultar contenido que sobresalga, para la animaciÃ³n */
-    padding: 0;
-    /* Elimina padding */
-
-    /* Contenedor del menÃº */
-    &>ol {
-        margin: 0;
-        /* Elimina margen */
-        padding: 0;
-        /* Elimina padding */
-        border-left: var(--emphasis-color-1) 2pt solid;
-        /* Borde izquierdo */
-        border-right: var(--emphasis-color-1) 2pt solid;
-        /* Borde derecho */
-    }
-
-    /* Estilos para los elementos de la lista */
-    & li {
-        margin: 0;
-        /* Elimina margen */
-        padding: 0;
-        /* Elimina padding */
-        list-style-type: none;
-        /* Elimina viÃ±etas de la lista */
-    }
-
-    /* Estilos para los spans dentro de los elementos de la lista */
-    & li span {
-        display: block;
-        /* Mostrar como bloque para ocupar todo el ancho */
-        height: 20pt;
-        /* Altura del elemento */
-        line-height: 20pt;
-        /* Alinear texto verticalmente haciendo la lÃ­nea igual de alta */
-
-        transition-property: height, padding-bottom, padding-top;
-        /* Propiedades a animar */
-        transition-duration: 500ms;
-        /* DuraciÃ³n de la animaciÃ³n */
-        overflow: hidden;
-        /* Ocultar contenido que sobresalga, para la animaciÃ³n */
-
-        margin: 0;
-        /* Elimina margen */
-        padding-bottom: 8pt;
-        /* Relleno inferior */
-        padding-top: 8pt;
-        /* Relleno superior */
-        padding-left: 20pt;
-        /* Relleno izquierdo */
-        border-bottom: var(--emphasis-color-1) 2pt solid;
-        /* Borde inferior */
-
-        cursor: pointer;
-        /* Usar el icono de cursor "pointer" */
-        font-size: 14pt;
-        /* TamaÃ±o fuente */
-        user-select: none;
-        /* Evita selecciÃ³n de texto */
-    }
-
-    /* Estilos especiales para el primer elemento de la lista */
-    & li:first-child span {
-        padding-top: 8pt;
-        /* Relleno superior */
-    }
-
-    /* 
-        Estilos de span cuando el menÃº estÃ¡ oculto.
-        
-        Selector de clase (.hidden) - Aplica estilos a los elementos con esa clase.
-        Formato: .nombre-clase { ... }
-
-        Se puede combinar con otros selectores, como en este caso,
-        para aplicar estilos sÃ³lo cuando el elemento padre tiene esa clase.
-        Formato: selector.nombre-clase { ... }
-
-        Los espacios entre selectores son importantes:
-        - Sin espacio: el selector con clase es el mismo elemento
-        - Con espacio: el selector con clase es un hijo (en algÃºn nivel) del elemento padre
-    */
-    &.hidden li span {
-        /* Colapsamos el menÃº */
-        height: 0;
-        /* Altura del elemento */
-        padding-bottom: 0;
-        /* Relleno inferior */
-        padding-top: 0;
-        /* Relleno superior */
-        border: 0
-            /* Sin bordes */
-    }
-
-    /* Estilos de span al pasar el ratÃ³n por encima */
-    & li span:hover {
-        background-color: var(--emphasis-color-2);
-        /* Color de fondo al pasar el ratÃ³n */
-    }
-
-    /* Estilos para elementos deshabilitados */
-    & li.disabled span {
-        cursor: not-allowed;
-        /* Icono de cursor "not-allowed" */
-        background-color: lightgray;
-        /* Color de fondo gris */
-        color: rgb(52, 52, 52);
-        /* Color de texto gris oscuro */
-    }
-}
-
-/* Estilos para la secciÃ³n de gestiÃ³n de la IU */
-
-/* Estilos para el tÃ­tulo de la pÃ¡gina de gestiÃ³n */
-#title_page {
-    text-align: center;
-    /* Alinear texto al centro */
-    font-size: 20pt;
-    /* TamaÃ±o fuente */
-    text-decoration: underline;
-    /* Subrayar texto */
-
-    padding: 10pt;
-    /* Relleno */
-    border: 0;
-    /* Sin bordes */
-
-    user-select: none;
-    /* Evita selecciÃ³n de texto */
-}
-
-/* Contenedor de cabecera de gestiÃ³n (Incluye tÃ­tulo y controles) */
-#IU_manage_head {
-    display: flex;
-    /* DistribuciÃ³n flexible de elementos */
-    flex-direction: column;
-    /* Distribuye elementos en columna */
-
-    background-color: var(--emphasis-color-2);
-    /* Color de fondo */
-    border: 2pt solid var(--emphasis-color-1);
-    /* Borde */
-    border-top: 0;
-    /* Sin borde superior */
-    padding: 10pt;
-    /* Relleno */
-}
-
-/* Contenedor de controles de gestiÃ³n */
-#add_search_columns {
-    display: grid;
-    /* DistribuciÃ³n en cuadrÃ­cula */
-    grid-template-columns: 40pt 40pt 40pt 40pt auto 100pt;
-    /* DefiniciÃ³n de columnas */
-    /* DefiniciÃ³n de Ã¡reas de la cuadrÃ­cula */
-    grid-template-areas:
-        "add search test_unit test select_title select_cols";
-    row-gap: 10pt;
-    /* Espacio entre filas */
-
-    place-items: center;
-    /* Centrar elementos en sus celdas */
-
-    /* Estilos para el label del select */
-    &>label {
-        grid-area: select_title;
-        /* Ãrea de la cuadrÃ­cula */
-        text-align: right;
-        /* Alinear texto a la derecha */
-
-        width: 100%;
-        /* Ocupa todo el ancho de su celda */
-        margin-right: 10pt;
-        /* Margen derecho */
-
-        font-weight: bold;
-        /* Negrita */
-        user-select: none;
-        /* Evita selecciÃ³n de texto */
-
-        /* 
-            Pseudo-elemento ::after - Permite aÃ±adir contenido despuÃ©s del elemento.
-            Formato: [selector]::after { ... }
-
-            Los pseudo-elementos son elementos virtuales que no existen en el HTML,
-            pero que podemos crear y estilizar con CSS.
-            Son diferentes de las pseudo-clases, que definen estados especiales de un elemento.
-
-            Los pseudo-elementos no tienen pseudo-clases, pero pueden combinarse con ellas.
-            Por ejemplo: [selector]:hover::after { ... }
-
-            Ejemplos de pseudo-elementos comunes: ::before, ::after, 
-            ::first-letter, ::first-line, etc.
-        */
-        &::after {
-            content: ":";
-            /* AÃ±ade dos puntos despuÃ©s del texto del label */
-        }
-    }
-
-    /* 
-        Posicionamiento relativo para que el select absoluto se posicione 
-        respecto a este contenedor y pueda crecer sin modificar el flujo del documento 
-    */
-    position: relative;
-
-    /* Estilos para el select de columnas */
-    &>select {
-        grid-area: select_cols;
-        /* Ãrea de la cuadrÃ­cula */
-
-        position: absolute;
-        /* Posicionamiento absoluto */
-        top: 10pt;
-        /* SeparaciÃ³n superior */
-
-        transition: height 0.3s;
-        /* TransiciÃ³n suave al cambiar altura */
-        height: 16pt;
-        /* Altura del select */
-        padding: 2pt;
-        /* Relleno */
-        min-width: 105pt;
-        /* Ancho mÃ­nimo del select */
-        overflow-y: scroll;
-        /* AÃ±ade scroll vertical si es necesario */
-        z-index: 10;
-        /* Asegura que el select estÃ© por encima de otros elementos */
-
-        background-color: var(--light-color);
-        /* Color de fondo */
-        border: 2pt solid var(--emphasis-color-1);
-        /* Borde */
-
-        user-select: none;
-        /* Evita selecciÃ³n de texto */
-
-        /* Estilos al pasar el ratÃ³n por encima */
-        &:hover {
-            height: 100pt;
-            /* Aumenta la altura para mostrar mÃ¡s opciones */
-        }
-    }
-
-    /* Estilos para los botones (AÃ±adir, Buscar, y los de Test) */
-    &>img {
-        cursor: pointer;
-        /* Usar el icono de cursor "pointer" */
-        transition: transform 0.3s;
-        /* TransiciÃ³n suave al transformar */
-        user-select: none;
-        /* Evita selecciÃ³n de imagen */
-        -webkit-user-drag: none;
-        /* Impide arrastrar la imagen */
-
-        /* Estilos al pasar el ratÃ³n por encima */
-        &:hover {
-            transform: scale(1.2);
-            /* Aumenta el tamaÃ±o al 120% */
-        }
-
-        /* Estilos al hacer clic en la imagen */
-        &:active {
-            transform: scale(0.9);
-            /* Reduce el tamaÃ±o al 90% */
-        }
-    }
-}
-
-/* Estilos especÃ­ficos para los botones de Test */
-#botonTEST_UNIT {
-    grid-area: test_unit;
-    /* Ãrea de la cuadrÃ­cula */
-    width: 30pt;
-    /* Ancho del botÃ³n */
-    height: 30pt;
-    /* Alto del botÃ³n */
-}
-
-/* Estilos especÃ­ficos para el botÃ³n de bÃºsqueda */
-#botonTEST {
-    grid-area: test;
-    /* Ãrea de la cuadrÃ­cula */
-}
-
-/* Estilos para los elementos artÃ­culo */
-article {
-    border: 2pt solid var(--emphasis-color-1);
-    /* Borde */
-    border-top: 0;
-    /* Sin borde superior */
-    text-align: center;
-    /* Alinear texto al centro */
-    padding: 10pt;
-    /* Relleno */
-
-    /* Estilo para el texto seleccionado dentro del artÃ­culo */
-    &::selection {
-        background-color: var(--dark-color);
-        /* Color de fondo */
-        color: var(--light-color);
-        /* Color de texto */
-    }
-}
-
-/* Estilos para los elementos footer */
-footer {
-    position: fixed;
-    /* Posicionamiento fijo */
-    bottom: 0;
-    /* Pegado al fondo de la ventana */
-    left: 0;
-    /* Pegado al lado izquierdo de la ventana */
+#info-equipo {
     width: 100%;
-    /* Ocupa todo el ancho de la ventana */
-    padding: 5pt;
-    /* Relleno */
     border: 0;
-    /* Sin bordes */
-
-    background-color: var(--dark-color);
-    /* Color de fondo */
-    color: var(--light-color);
-    /* Color de texto */
-
-    text-align: center;
-    /* Alinear texto al centro */
-    font-style: italic;
-    /* Estilo de fuente en cursiva */
-    font-weight: bold;
-    /* Negrita */
-    font-size: 10pt;
-    /* TamaÃ±o de fuente */
-
-    user-select: none;
-    /* Evita selecciÃ³n de texto */
-
-    &>img {
-
-        cursor: pointer;
-        /* Usar el icono de cursor "pointer" */
-        transition: transform 0.3s;
-        /* TransiciÃ³n suave al transformar */
-        user-select: none;
-        /* Evita selecciÃ³n de imagen */
-        -webkit-user-drag: none;
-        /* Impide arrastrar la imagen */
-
-        /* Estilos al pasar el ratÃ³n por encima */
-        &:hover {
-            transform: scale(1.2);
-            /* Aumenta el tamaÃ±o al 120% */
-        }
-
-        /* Estilos al hacer clic en la imagen */
-        &:active {
-            transform: scale(0.9);
-            /* Reduce el tamaÃ±o al 90% */
-        }
-    }
-
-    &>img {
-        width: 30pt;
-        /* Ancho de img API */
-        height: 20pt;
-        /* Alto de las API */
-        padding-left: 5pt;
-        /* Relleno izquierdo de las API */
-        padding-right: 5pt;
-        /* Relleno derecho de las API */
-        cursor: pointer;
-        /* Usar el icono de cursor "pointer" */
-        transition-property: width, height, padding;
-        /* Propiedades a animar */
-        transition-duration: 300ms;
-        /* DuraciÃ³n de la animaciÃ³n */
-        user-select: none;
-        /* Evita selecciÃ³n de imagen */
-        -webkit-user-drag: none;
-        /* Impide arrastrar la imagen */
-
-        /* 
-        :hover - Estilos al pasar el ratÃ³n por encima
-
-        Pseudo-clases CSS: Permiten definir estilos para estados especiales de un elemento.
-        Formato: selector:pseudo-clase { ... }
-        Ejemplos comunes: :hover, :active, :focus, :visited, :first-child, :last-child, etc.
-    */
-        &:hover {
-            width: 40pt;
-            /* Ancho de las API */
-            height: 30pt;
-            /* Alto de las API */
-            padding: 0;
-            /* Sustituye el padding por ancho y alto, para mantener el tamaÃ±o */
-        }
-
-        /* :active - Estilos al hacer clic en la imagen */
-        &:active {
-            width: 28pt;
-            /* Ancho de las API */
-            height: 28pt;
-            /* Alto de las API */
-            padding-left: 5pt;
-            /* Relleno izquierdo de las API */
-            padding-right: 5pt;
-            /* Relleno derecho de las API */
-        }
-    }
-
-}
-
-
-
-/* 
-    AÃ±adimos padding-bottom al body para evitar que el contenido
-    quede oculto tras el footer fijo.
-
-    Como podemos ver, es posible definir estilos para un selector
-    aunque ya tenga estilos definidos anteriormente.
-
-    En ese caso, se aplican ambos estilos, y si hay alguna
-    propiedad repetida, se aplica la Ãºltima definida.
-*/
-body {
-    padding-bottom: 30pt;
-    /* Para tener en cuenta el fixed footer */
-}
-
-/*
-Estructura de selectores CSS y estilos:
-
-[selector] (, [selector] ... ) {
-    propiedad: valor;
-    propiedad: valor;
-    ...
-
-    & [selector_anidado] { 
-        // Â¡El espacio (o su ausencia) entre el & y el selector es importante!
-        // Indica si seguimos en el mismo nivel o bajamos uno en la jerarquÃ­a
-
-        propiedad: valor;
-        propiedad: valor;
-        ...
-    }
-    ...
-}
-*/
-
-/* Estilos para la tabla de gestiÃ³n */
-#IU_manage_table {
-    width: 100%;
-    /* Ocupa todo el ancho del contenedor */
-    border: 2pt solid var(--emphasis-color-1);
-    /* Borde */
-    border-top: 0;
-    /* Sin borde superior */
-    box-sizing: border-box;
-    /* Incluye el borde en el tamaÃ±o total */
-
     overflow: auto;
-    /* AÃ±ade scroll si el contenido desborda */
-
-    /* Estilos para la tabla dentro del contenedor */
-    & table {
-        width: 100%;
-        /* Ocupa todo el ancho del contenedor */
-        border: 6pt solid var(--light-color);
-        /* Borde exterior de la tabla */
-
-        /* Estilos para las celdas de encabezado */
-        & th {
-            padding: 10pt;
-            /* Relleno */
-            background-color: var(--dark-color);
-            /* Color de fondo */
-            color: var(--light-color);
-            /* Color de texto */
-            user-select: none;
-            /* Evita selecciÃ³n de texto */
-
-            /* Estilos para el primer th */
-            &:first-child {
-                border-top-left-radius: 10pt;
-                /* Bordes redondeados superiores izquierdos */
-            }
-
-            /* Estilos para el Ãºltimo th */
-            &:last-child {
-                border-top-right-radius: 10pt;
-                /* Bordes redondeados superiores derechos */
-            }
-        }
-
-        /* Estilos para las filas de la tabla */
-        & tr {
-
-            /* Estilos para las celdas de datos */
-            & td {
-                text-align: center;
-                /* Alinear texto al centro */
-                transition: background-color 0.1s;
-                /* TransiciÃ³n suave al cambiar color fondo */
-
-                /* Estilos para las imÃ¡genes dentro de las celdas (Acciones) */
-                & img {
-                    transition: transform 0.3s;
-                    /* TransiciÃ³n suave al transformar */
-                    transform: scale(0.8);
-                    /* Escalar imagen al 80% */
-
-                    cursor: pointer;
-                    /* Usar el icono de cursor "pointer" */
-                    user-select: none;
-                    /* Evita selecciÃ³n de imagen */
-                    -webkit-user-drag: none;
-                    /* Impide arrastrar la imagen */
-
-                    /* Estilos al pasar el ratÃ³n por encima */
-                    &:hover {
-                        transform: scale(1.0);
-                        /* Escalar imagen al 100% */
-                    }
-
-                    /* Estilos al hacer clic en la imagen */
-                    &:active {
-                        transform: scale(0.72);
-                        /* Escalar imagen al 72% */
-                    }
-                }
-
-                position: relative;
-                /* PosiciÃ³n relativa para contener el enlace absoluto */
-
-                /* Estilo para los enlaces a dentro de las celdas td */
-                & a {
-                    position: absolute;
-                    /* PosiciÃ³n absoluta */
-                    top: 1pt;
-                    /* SeparaciÃ³n superior */
-                    right: 0;
-                    /* Alineado a la derecha */
-                }
-
-                /* Pseudo-clase :has() - Permite seleccionar un elemento si contiene un elemento 
-                descendiente que cumple una condiciÃ³n.
-                En este caso, se usa para aÃ±adir estilos a las celdas td que contienen un enlace a. */
-                &:has(a) {
-                    padding-right: 36pt;
-                    /* Relleno derecho extra si tiene un enlace */
-                }
-            }
-
-            /* Pseudo-clase - nth-child() - Permite seleccionar elementos en funciÃ³n de su posiciÃ³n entre sus hermanos.
-            En este caso, se usa para aplicar estilos alternos a las filas pares e impares. */
-            &:nth-child(even) {
-                background-color: var(--emphasis-color-2);
-                /* Color de fondo para filas pares */
-            }
-
-            /* Estilo para las celdas cuando se pasa el ratÃ³n por encima DE LA FILA tr */
-            &:hover td {
-                background-color: var(--medium-color);
-                /* Color de fondo */
-            }
-
-            /* Estilo para la Ãºltima fila de la tabla */
-            &:last-child {
-
-                /* Estilo para la primera celda td */
-                & td:first-child {
-                    border-bottom-left-radius: 10pt;
-                    /* Bordes redondeados inferiores izquierdos */
-                }
-
-                /* Estilo para la Ãºltima celda td */
-                & td:last-child {
-                    border-bottom-right-radius: 10pt;
-                    /* Bordes redondeados inferiores derechos */
-                }
-            }
-
-            /* Estilo para el texto seleccionado dentro de las celdas */
-            &::selection {
-                background-color: var(--dark-color);
-                /* Color de fondo */
-                color: var(--light-color);
-                /* Color de texto */
-            }
-
-        }
-    }
-}
-
-
-/* Estilos de los formularios */
-
-/* Estilos para el contenedor del formulario */
-#Div_IU_form {
-    border: 0;
-    /* Sin bordes */
-}
-
-/* Estilos para el contenido del formulario */
-.contenidoForm {
-    display: flex;
-    /* DistribuciÃ³n flexible de elementos */
-    flex-direction: column;
-    /* Distribuye elementos en columna */
-    align-items: start;
-    /* Alinea elementos al inicio (izquierda) */
-    justify-content: space-between;
-    /* Espacio entre elementos */
-
-    border-radius: 20pt;
-    /* Bordes redondeados */
-
-    width: min(600pt, 90%);
-    /* Ancho mÃ¡ximo de 600pt o 90% del contenedor padre */
-    overflow: hidden;
-    /* Oculta contenido que sobresalga, para que no se muestren barras de desplazamiento */
-    border-width: 2pt;
-    /* Ancho del borde */
-
-    box-shadow: 0 4pt 8pt 0 rgba(0, 0, 0, 0.2);
-    /* Sombra alrededor del contenedor */
-    /* Formato de las sombras: offset-x offset-y blur-radius spread-radius color */
-
     background-color: var(--light-color);
-    /* Color de fondo */
-
-    /* Estilos para el tÃ­tulo del formulario */
-    & .class_titulo_form {
-        background-color: var(--dark-color);
-        /* Color de fondo */
-        height: 15%;
-        /* Altura del tÃ­tulo, relativa al contenedor padre */
-        box-shadow: 0 4pt 8pt 0 rgba(0, 0, 0, 0.4);
-        /* Sombra alrededor del tÃ­tulo */
-
-        /* Estilos para el span dentro del tÃ­tulo */
-        & span {
-            color: var(--light-color);
-            /* Color de texto */
-            font-size: 18pt;
-            /* TamaÃ±o de fuente */
-            text-align: center;
-            /* Alinear texto al centro */
-            font-weight: bold;
-            /* Negrita */
-            user-select: none;
-            /* Evita selecciÃ³n de texto */
-        }
-    }
-
-    /* Estilos para el contenedor del formulario */
-    & #contenedor_IU_form {
-        width: 100%;
-        /* Ocupa todo el ancho del contenedor padre */
-        max-height: 72%;
-        /* Altura mÃ¡xima del contenedor, relativa al contenedor padre */
-        overflow: auto;
-        /* AÃ±ade barras de desplazamiento si el contenido desborda */
-    }
-
-    /* Estilos para el formulario */
-    & form {
-        top: 0;
-        /* PosiciÃ³n superior, ya que se ha modificado previamente en otro CSS */
-        left: 0;
-        /* PosiciÃ³n izquierda, ya que se ha modificado previamente en otro CSS */
-
-        padding: 20pt;
-        /* Relleno del formulario */
-        box-sizing: border-box;
-        /* Incluye el padding en el tamaÃ±o total */
-
-        display: flex;
-        /* DistribuciÃ³n flexible de elementos */
-        flex-direction: column;
-        /* Distribuye elementos en columna */
-        align-items: center;
-        /* Centra horizontalmente los elementos */
-    }
-
-    /* Estilos para los labels dentro del formulario */
-    & label {
-        width: 100%;
-        /* Ocupa todo el ancho del contenedor padre */
-        margin-top: 10pt;
-        /* Margen superior */
-        margin-bottom: 5pt;
-        /* Margen inferior */
-
-        font-weight: bold;
-        /* Negrita */
-        user-select: none;
-        /* Evita selecciÃ³n de texto */
-
-        /* Pseudo-elemento ::after - Permite aÃ±adir contenido despuÃ©s del elemento. */
-        &::after {
-            content: ":";
-            /* AÃ±ade dos puntos despuÃ©s del texto del label */
-        }
-    }
-
-
-    /* Estilos para los inputs dentro del formulario */
-    & input {
-        width: 100%;
-        /* Ocupa todo el ancho del contenedor padre */
-
-        padding: 5pt;
-        /* Relleno */
-        padding-left: 15pt;
-        /* Relleno izquierdo */
-        margin-top: 5pt;
-        /* Margen superior */
-        margin-bottom: 5pt;
-        /* Margen inferior */
-
-        border: 2pt solid var(--emphasis-color-1);
-        /* Borde */
-        border-radius: 20pt;
-        /* Bordes redondeados */
-        box-sizing: border-box;
-        /* Incluye el borde en el tamaÃ±o total */
-
-        font-size: 14pt;
-        /* TamaÃ±o de fuente */
-
-        /*
-            Estilos especÃ­ficos para los inputs de tipo file 
-
-            Selectores de atributo [atributo="valor"] - Aplica estilos a los elementos
-            que tienen ese atributo con ese valor. Se puede combinar con otros selectores.
-
-            Formato: [atributo="valor"] { ... }
-
-            Algunos selectores de atributo:
-            - [atributo]: Elementos que tienen el atributo (independientemente de su valor)
-            - [atributo="valor"]: Elementos cuyo atributo tiene exactamente ese valor
-            - [atributo~="valor"]: Elementos cuyo atributo contiene ese valor en una lista
-
-            MÃ¡s: https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors
-        */
-        &[type="file"] {
-            padding-left: 10pt;
-            /* Relleno izquierdo */
-            font-size: 12pt;
-            /* TamaÃ±o de fuente */
-            background-color: var(--light-color);
-            /* Color de fondo */
-
-            cursor: pointer;
-            /* Usar el icono de cursor "pointer" */
-            user-select: none;
-            /* Evita selecciÃ³n de texto */
-        }
-    }
-
-    /* Estilos para los textarea dentro del formulario */
-    & textarea {
-        width: 100%;
-        /* Ocupa todo el ancho del contenedor padre */
-        padding: 5pt;
-        /* Relleno */
-        padding-left: 15pt;
-        /* Relleno izquierdo */
-        margin-top: 5pt;
-        /* Margen superior */
-        margin-bottom: 5pt;
-        /* Margen inferior */
-
-        border: 2pt solid var(--emphasis-color-1);
-        /* Borde */
-        border-radius: 20pt;
-        /* Bordes redondeados */
-        box-sizing: border-box;
-        /* Incluye el borde en el tamaÃ±o total */
-
-        resize: vertical;
-        /* Permite redimensionar sÃ³lo verticalmente */
-        font-size: 14pt;
-        /* TamaÃ±o de fuente */
-    }
-
-    & select {
-        width: 100%;
-        /* Ocupa todo el ancho del contenedor padre */
-        padding: 5pt;
-        /* Relleno */
-        padding-left: 15pt;
-        /* Relleno izquierdo */
-        margin-top: 5pt;
-        /* Margen superior */
-        margin-bottom: 5pt;
-        /* Margen inferior */
-
-        border: 2pt solid var(--emphasis-color-1);
-        /* Borde */
-        border-radius: 20pt;
-        /* Bordes redondeados */
-        box-sizing: border-box;
-        /* Incluye el borde en el tamaÃ±o total */
-
-        font-size: 14pt;
-        /* TamaÃ±o de fuente */
-    }
-
-    & .checkbox_group,
-    .radio_group {
-        display: flex;
-        /* DistribuciÃ³n flexible de elementos */
-        flex-direction: row;
-        /* Distribuye elementos en columna */
-        align-items: center;
-        /* Alinea elementos al inicio (izquierda) */
-        justify-content: flex-start;
-        /* Alinea elementos al inicio (izquierda) */
-
-        width: 100%;
-        /* Ocupa todo el ancho del contenedor padre */
-
-        margin-left: 30pt;
-        /* Margen izquierdo */
-        margin-top: 10pt;
-        /* Margen superior */
-
-        /* Estilos para los elementos dentro del grupo de checkboxes/radios */
-        & * {
-            width: auto;
-            /* Ancho automÃ¡tico */
-        }
-
-        & input[type="checkbox"],
-        input[type="radio"] {
-            /* Checkbox personalizado usando pseudo-elementos */
-            --size: 20pt;
-            /* TamaÃ±o del checkbox/radio */
-
-            margin: 0;
-            /* Sin margen */
-            padding: 0;
-            /* Sin relleno */
-            border: 0;
-            /* Sin borde */
-
-            width: var(--size);
-            /* Ancho del checkbox/radio */
-            height: var(--size);
-            /* Alto del checkbox/radio */
-
-            appearance: none;
-            /* Ocultar el checkbox/radio original */
-
-            transition: transform 0.3s;
-            /* TransiciÃ³n suave al transformar */
-
-            position: relative;
-            /* PosiciÃ³n relativa para los pseudo-elementos */
-
-            /* Pseudo-elemento ::before - Permite aÃ±adir contenido antes del elemento. 
-            En este caso serÃ¡ el recuadro de la checkbox/radio. */
-            &::before {
-                position: absolute;
-                /* PosiciÃ³n absoluta */
-                content: "";
-                /* Contenido vacÃ­o */
-
-                top: 0;
-                /* AlineaciÃ³n superior */
-                left: 0;
-                /* AlineaciÃ³n izquierda */
-                width: var(--size);
-                /* Ancho del checkmark */
-                height: var(--size);
-                /* Alto del checkmark */
-
-                box-sizing: border-box;
-                /* Incluye el borde en el tamaÃ±o total */
-                border: 2pt solid var(--emphasis-color-1);
-                /* Borde */
-
-            }
-
-            &[type="checkbox"]::before {
-                border-radius: 4pt;
-                /* Bordes redondeados */
-            }
-
-            &[type="radio"]::before {
-                border-radius: 50%;
-                /* Bordes circulares */
-            }
-
-            /* Pseudo-elemento ::after - Permite aÃ±adir contenido despuÃ©s del elemento. 
-            En este caso serÃ¡ el checkmark que se visualizarÃ¡ cuando la checkbox/radio estÃ© pulsada */
-            &::after {
-                position: absolute;
-                /* PosiciÃ³n absoluta */
-                content: "\2713";
-                /* Contenido del checkmark */
-                text-align: center;
-                /* Alinear texto al centro */
-
-                top: 0;
-                /* AlineaciÃ³n vertical */
-                left: 0;
-                /* AlineaciÃ³n horizontal */
-                width: var(--size);
-                /* Ancho del checkmark */
-                height: var(--size);
-                /* Alto del checkmark */
-
-                opacity: 0;
-                /* Oculto por defecto */
-                z-index: -4;
-                /* Mostramos el checkmark por debajo del recuadro */
-            }
-
-            &[type="checkbox"]::after {
-                content: "\2713";
-                /* Contenido del checkmark */
-                font-size: calc(var(--size) - 6pt);
-                /* TamaÃ±o de fuente */
-
-                color: var(--light-color);
-                /* Color de texto */
-                background-color: var(--emphasis-color-1);
-                /* Color de fondo */
-
-                border-radius: 4pt;
-                /* Bordes redondeados */
-            }
-
-            &[type="radio"]::after {
-                content: "\25CF";
-                /* Contenido del radio */
-                font-size: calc(var(--size) - 3.5pt);
-                /* TamaÃ±o de fuente */
-
-                color: var(--emphasis-color-1);
-                background-color: var(--light-color);
-                /* Color de fondo */
-
-                border-radius: 50%;
-                /* Bordes circulares */
-            }
-
-            /* Pseudo-clase :checked - Aplica estilos cuando el checkbox estÃ¡ marcado */
-            &:checked {
-
-                /* Estilos cuando el checkbox estÃ¡ marcado */
-                &::after {
-                    opacity: 1;
-                    /* Mostrar checkmark */
-                }
-            }
-
-            /* Pseudo-clase :focus - Aplica estilos cuando el checkbox estÃ¡ enfocado */
-            &:focus {
-                outline: none;
-                /* Sin contorno al enfocar */
-                transform: scale(1.2);
-                /* Escalar checkbox al 120% */
-
-                /* Estilos del recuadro al enfocar */
-                &::before {
-                    border-color: var(--dark-color);
-                    /* Cambia el color del borde al enfocar */
-                }
-            }
-
-            /* Pseudo-clase :hover - Aplica estilos cuando el ratÃ³n estÃ¡ sobre el checkbox */
-            &:hover {
-                transform: scale(1.2);
-                /* Escalar checkbox al 120% */
-            }
-
-            /* Pseudo-clase :active - Aplica estilos cuando se hace clic en el checkbox */
-            &:active {
-                transform: scale(0.9);
-                /* Escalar checkbox al 90% */
-            }
-        }
-
-        /* Estilos para los span dentro del grupo de checkboxes */
-        & label {
-            margin-left: 10pt;
-            /* Margen izquierdo */
-            user-select: none;
-            /* Evita selecciÃ³n de texto */
-
-            &::after {
-                content: "";
-            }
-        }
-    }
-
-    /* Estilo para elementos a (En este caso, descripciones de error de validaciones de campo) */
-    & a {
-        font-style: italic;
-        /* Cursiva */
-        color: red;
-        /* Color rojo */
-    }
-
-    /* Estilos para las imÃ¡genes dentro del formulario (BotÃ³n de cerrar) y el botÃ³n de ver imagen */
-    &>img,
-    a:has(img) {
-        align-self: center;
-        /* Centra la imagen horizontalmente */
-
-        background-color: var(--emphasis-color-2);
-        /* Color de fondo */
-        box-shadow: 0 4pt 8pt 0 rgba(0, 0, 0, 0.2);
-        /* Sombra alrededor del botÃ³n */
-
-        padding: 30pt;
-        /* Relleno */
-        padding-bottom: 3pt;
-        /* Relleno inferior */
-        padding-top: 0pt;
-        /* Relleno superior */
-        margin-bottom: 10pt;
-        /* Margen inferior */
-        border-radius: 10pt;
-        /* Bordes redondeados */
-
-        cursor: pointer;
-        /* Usar el icono de cursor "pointer" */
-        user-select: none;
-        /* Evita selecciÃ³n de imagen */
-        -webkit-user-drag: none;
-        /* Impide arrastrar la imagen */
-
-        transition: transform 0.3s;
-        /* TransiciÃ³n suave al transformar */
-
-        /* Estilos al pasar el ratÃ³n por encima */
-        &:hover {
-            transform: scale(1.1);
-            /* Escalar imagen al 110% */
-        }
-    }
-
-    /* Estilo para el a que tiene una imagen y enlaza a la pÃ¡gina de la foto de la persona */
-    & a:has(img) {
-        width: 50%;
-        display: flex;
-        /* DistribuciÃ³n flexible de elementos */
-        justify-content: center;
-        /* Centra horizontalmente los elementos */
-        align-items: center;
-        /* Centra verticalmente los elementos */
-    }
-
 }
 
-/* Estilos para el contenedor del botÃ³n de confirmaciÃ³n de formulario */
-#div_boton {
-    width: 100%;
-    /* Ocupa todo el ancho del contenedor padre */
-
-    /* En este caso, usamos grid como un atajo para centrar 
-    el botÃ³n con un par de propiedades */
-
-    display: grid;
-    /* DistribuciÃ³n en cuadrÃ­cula */
-    place-items: center;
-    /* Centrar elementos en sus celdas */
-
-    /* Estilos para el botÃ³n dentro del contenedor */
-    & button {
-        width: 80%;
-        /* Ocupa el 80% del ancho del contenedor padre */
-        border: 0;
-        /* Sin bordes */
-        border-radius: 20pt;
-        /* Bordes redondeados */
-        margin-top: 10pt;
-        /* Margen superior */
-
-        box-shadow: 0 4pt 8pt 0 rgba(0, 0, 0, 0.2);
-        /* Sombra alrededor del botÃ³n */
-        background-color: var(--emphasis-color-2);
-        /* Color de fondo */
-        cursor: pointer;
-        /* Usar el icono de cursor "pointer" */
-
-        transition: transform 0.3s;
-        /* TransiciÃ³n suave al transformar */
-
-        /* Estilos al pasar el ratÃ³n por encima */
-        &:hover {
-            transform: scale(1.03);
-            /* Escalar botÃ³n al 103% */
-        }
-    }
+#info-equipo * {
+    font-family: monospace;
+    font-size: 12pt;
 }
 
-/* Estilos para la tabla de gestiÃ³n */
-:root {
-    --light-color: #EFFEFF;
-    --medium-color: #a1c2c5;
-    --dark-color: #0E2C31;
-    --emphasis-color-1: #5ba0a5;
-    --emphasis-color-2: #d0f1f4;
-}
-
-#Div_IU_Test {
-    width: 100%;
-    /* Ocupa todo el ancho del contenedor */
-    border: 0;
-    /* Sin borde */
-    box-sizing: border-box;
-    /* Incluye el borde en el tamaÃ±o total */
-
-    overflow: auto;
-    /* AÃ±ade scroll si el contenido desborda */
-
-    & * {
-        font-family: monospace;
-        font-size: 12pt;
-    }
-}
-
-/* Estilos para la tabla dentro del contenedor */
-#tablaresultadostest {
+.tabla-equipo {
     margin-top: 10pt;
     width: 100%;
-    /* Ocupa todo el ancho del contenedor */
-    border: 6pt solid var(--light-color);
-    /* Borde exterior de la tabla */
-
-    /* Estilos para las celdas de encabezado */
-    & th {
-        padding: 10pt;
-        /* Relleno */
-        background-color: var(--dark-color);
-        /* Color de fondo */
-        color: var(--light-color);
-        /* Color de texto */
-        user-select: none;
-        /* Evita selecciÃ³n de texto */
-
-        /* Estilos para el primer th */
-        &:first-child {
-            border-top-left-radius: 10pt;
-            /* Bordes redondeados superiores izquierdos */
-        }
-
-        /* Estilos para el Ãºltimo th */
-        &:last-child {
-            border-top-right-radius: 10pt;
-            /* Bordes redondeados superiores derechos */
-        }
-    }
-
-    /* Estilos para las filas de la tabla */
-    & tr {
-
-        /* Estilos para las celdas de datos */
-        & td {
-            text-align: center;
-            /* Alinear texto al centro */
-            transition: background-color 0.1s;
-            /* TransiciÃ³n suave al cambiar color fondo */
-            padding: 5pt;
-        }
-
-        /* Pseudo-clase - nth-child() - Permite seleccionar elementos en funciÃ³n de su posiciÃ³n entre sus hermanos.
-            En este caso, se usa para aplicar estilos alternos a las filas pares e impares. */
-        &:nth-child(even) {
-            background-color: var(--emphasis-color-2);
-            /* Color de fondo para filas pares */
-        }
-
-        /* Estilo para las celdas cuando se pasa el ratÃ³n por encima DE LA FILA tr */
-        &:hover td {
-            background-color: var(--medium-color);
-            /* Color de fondo */
-        }
-
-        /* Estilo para la Ãºltima fila de la tabla */
-        &:last-child {
-
-            /* Estilo para la primera celda td */
-            & td:first-child {
-                border-bottom-left-radius: 10pt;
-                /* Bordes redondeados inferiores izquierdos */
-            }
-
-            /* Estilo para la Ãºltima celda td */
-            & td:last-child {
-                border-bottom-right-radius: 10pt;
-                /* Bordes redondeados inferiores derechos */
-            }
-        }
-
-        /* Estilo para el texto seleccionado dentro de las celdas */
-        &::selection {
-            background-color: var(--dark-color);
-            /* Color de fondo */
-            color: var(--light-color);
-            /* Color de texto */
-        }
-    }
 }
 
+.tabla-equipo th {
+    padding: 10pt;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    user-select: none;
+}
 
+.tabla-equipo tr td {
+    text-align: center;
+    transition: background-color 0.1s;
+    padding: 5pt;
+}
 
-#IU_Test_result_nofile,
-#IU_Test_result_file {
-    border: 2pt solid var(--emphasis-color-1);
-    /* Borde */
+.tabla-equipo tr:nth-child(even) {
+    background-color: var(--emphasis-color-2);
+}
+
+.tabla-equipo tr:hover td {
+    background-color: var(--medium-color);
+}
+
+.tabla-equipo tr::selection {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+
+#datos-equipo {
     border-top: 0;
-
-    & * {
-        font-size: 10pt;
-    }
-
-    & table {
-        margin-top: 0;
-
-        & td,
-        th {
-            max-width: 40pt;
-            overflow-wrap: break-word;
-        }
-    }
 }
 
-/* Validation Styles */
-.input-valid {
-    border-color: #28a745 !important;
-    background-color: #e8f5e9 !important;
+#datos-equipo * {
+    font-size: 10pt;
 }
 
-.input-invalid {
-    border-color: #dc3545 !important;
-    background-color: #f8d7da !important;
+#datos-equipo table {
+    margin-top: 0;
+}
+
+#datos-equipo td,
+#datos-equipo th {
+    max-width: 40pt;
+    overflow-wrap: break-word;
+}
+
+.text_titulo_menu {
+    margin-top: 15px;
 }
