@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentación de la API</title>
+    <link rel="stylesheet" type="text/css" href="./Base/css/IU.css">
+</head>
+<body>
+    <header>
+        <h1>Documentación API - ET3</h1>
+    </header>
+    
+    <main>
+        <section class="api-section">
+            <h2>index.html</h2>
+            
+            <div class="method">
+                <h3>mostrarDatosGrupo()</h3>
+                <p><strong>Descripción:</strong> Crea una tabla, la rellena con los datos de los miembros del grupo, y la coloca en la interfaz</p>
+            </div>
+        </section>
+
+        <section class="api-section">
+            <h2>class buscadorentidad</h2>
+            <p>Clase que lee la estructura e instancia una entidad general o específica en función de sus datos</p>
+            
+            <div class="method">
+                <h3>constructor()</h3>
+                <p><strong>Descripción:</strong> Añade al menú una barra de búsqueda para entidades y un botón de confirmación.<br>
+                                                    Las clases instanciadas se asignarán a la variable 'entidad'</p>
+            </div>
+            
+            <div class="method">
+                <h3>buscar_entidad(valor)</h3>
+                <p><strong>Descripción:</strong> Recibe el nombre de la entidad seleccionada e instancia una entidad general o específica en función de los datos de su estructura.<br>
+                                                    Devuelve un error si no existe una estructura para la entidad solicitada</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>valor</td>
+                        <td>String</td>
+                        <td>Nombre de la entidad</td>
+                    </tr>
+                </table>
+                <p><strong>Output:</strong> devuelve una referencia al objeto creado, o null si la estructura no existe</p>
+            </div>
+            
+            <div class="method">
+                <h3>es_clase_personalizada()</h3>
+                <p><strong>Descripción:</strong> Analiza la estructura de la entidad y determina si necesita instanciar una clase específica para tratar validaciones personalizadas</p>
+                
+                <p><strong>Output:</strong> Boolean - true si requiere validaciones personalizadas, false si no</p>
+            </div>
+        </section>
+        
+        <section class="api-section">
+            <h2>class entidadgeneral</h2>
+            <p>Clase que instancia una entidad que no requiere un tratamiento personalizado de sus atributos</p>
+
+            <div class="method">
+                <p><strong>Extends:</strong> constructorentidad</p>
+            </div>
+            
+            <div class="method">
+                <h3>constructor(estructura)</h3>
+                <p><strong>Descripción:</strong> Transfiere la estructura de la entidad a la clase de creación de tablas y formularios</p>
+
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>estructura</td>
+                        <td>Estructura de datos</td>
+                        <td>Estructura de datos de la entidad</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="method">
+                <h3>mostrarcambioatributo(atributo, valor)</h3>
+                <p><strong>Descripción:</strong> Altera la presentación de ciertos atributos en la tabla.<br>
+                                                    En el caso de la entidad general, se emplea únicamente para convertir formatos de fecha</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>atributo</td>
+                        <td>String</td>
+                        <td>Nombre del atributo</td>
+                    </tr>
+                    <tr>
+                        <td>valor</td>
+                        <td>String</td>
+                        <td>Valor del atributo</td>
+                    </tr>
+                </table>
+                <p><strong>Output:</strong> el dato modificado del atributo</p>
+            </div>
+        </section>
+        
+        <section class="api-section">
+            <h2>class [nombreentidad]</h2>
+            <p>Clase específica para tratar la entidad seleccionada</p>
+
+            <div class="method">
+                <p><strong>Extends:</strong> constructorentidad</p>
+            </div>
+            
+            <div class="method">
+                <h3>constructor(estructura)</h3>
+                <p><strong>Descripción:</strong> Transfiere la estructura de la entidad a la clase de creación de tablas y formularios</p>
+
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>estructura</td>
+                        <td>Estructura de datos</td>
+                        <td>Estructura de datos de la entidad</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="method">
+                <h3>mostrarcambioatributo(atributo, valor)</h3>
+                <p><strong>Descripción:</strong> Altera la presentación de ciertos atributos en la tabla</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>atributo</td>
+                        <td>String</td>
+                        <td>Nombre del atributo</td>
+                    </tr>
+                    <tr>
+                        <td>valor</td>
+                        <td>String</td>
+                        <td>Valor del atributo</td>
+                    </tr>
+                </table>
+                <p><strong>Output:</strong> el dato modificado del atributo</p>
+            </div>
+
+            <div class="method">
+                <h3>specialized_test_[nombreatributo]()</h3>
+                <p><strong>Descripción:</strong> Función de validación personalizada que se aplica al atributo</p>
+
+                <p><strong>Output:</strong> true si cumple los criterios de validación o un código de error en caso contrario</p>
+            </div>
+        </section>
+
+        <section class="api-section">
+            <h2>class constructorentidad</h2>
+            <p>Clase que crea las tablas de datos de la entidad y los formularios para su manipulación</p>
+
+            <div class="method">
+                <p><strong>Extends:</strong> EntidadAbstracta</p>
+            </div>
+            
+            <div class="method">
+                <h3>constructor(estructura)</h3>
+                <p><strong>Descripción:</strong> Carga la estructura y variables necesarias para el procesamiento de los datos de la entidad.<br>
+                                                    Realiza una petición al back y crea la tabla con los datos recibidos</p>
+
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>estructura</td>
+                        <td>Estructura de datos</td>
+                        <td>Estructura de datos de la entidad</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="method">
+                <h3>cargar_formulario_dinamico()</h3>
+                <p><strong>Descripción:</strong> Crea el formulario base para manipular la entidad.<br>
+                                                Itera sobre los atributos de la entidad descritos en su estructura añadiendo un campo para cada uno</p>
+                
+                <p><strong>Output:</strong> el código HTML del formulario completo</p>
+            </div>
+
+            <div class="method">
+                <h3>agregar_campo(atributo)</h3>
+                <p><strong>Descripción:</strong> Crea un campo de formulario para cada atributo en función de sus parámetros.<br>
+                                                    Si el campo corresponde al nombre de un fichero, añade un elemento de enlace al mismo</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>atributo</td>
+                        <td>String</td>
+                        <td>Nombre del atributo</td>
+                    </tr>
+                </table>
+                <p><strong>Output:</strong> el código HTML correspondiente al campo del atributo</p>
+            </div>
+
+            <div class="method">
+                <h3>createForm_ADD()</h3>
+                <h3>createForm_SEARCH()</h3>
+                <h3>createForm_EDIT(fila)</h3>
+                <h3>createForm_DELETE(fila)</h3>
+                <h3>createForm_SHOWCURRENT(fila)</h3>
+                <p><strong>Descripción:</strong> Ejecutan la función createForm con la acción y los datos correspondientes.<br>
+                                                    Se ha decidido mantener estas funciones para conservar la compatibilidad con versiones anteriores de la interfaz</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>fila</td>
+                        <td>Estructura de datos</td>
+                        <td>Conjunto de datos del registro de la entidad</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="method">
+                <h3>createForm(accion, fila)</h3>
+                <p><strong>Descripción:</strong> Edita el formulario en función de la acción a ejecutar:
+                                                    oculta atributos, rellena sus valores, impide modificaciones, coloca las validaciones de campo y formulario,
+                                                    agrega los links a fichero, añade botones de submit y las llamadas a las acciones correspondientes</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>accion</td>
+                        <td>String</td>
+                        <td>Código de la acción del formulario</td>
+                    </tr>
+                    <tr>
+                        <td>fila</td>
+                        <td>Estructura de datos</td>
+                        <td>Conjunto de datos del registro de la entidad (solo algunas acciones)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="method">
+                <h3>submit_formulario(accion)</h3>
+                <p><strong>Descripción:</strong> Repasa las validaciones de todos los campos no ocultos antes de realizar la acción de submit</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>accion</td>
+                        <td>String</td>
+                        <td>Código de la acción del formulario</td>
+                    </tr>
+                </table>
+                <p><strong>Output:</strong> Boolean - true si se cumplen todas las validaciones, false si alguna devuelve error</p>
+            </div>
+
+            <div class="method">
+                <h3>agregar_links(fila)</h3>
+                <p><strong>Descripción:</strong> Añade un enlace a fichero a los elementos de enlace del formulario</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>fila</td>
+                        <td>Estructura de datos</td>
+                        <td>Conjunto de datos del registro de la entidad</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="method">
+                <h3>ocultar_elementos(atributos)</h3>
+                <p><strong>Descripción:</strong> Oculta los campos del formulario correspondientes a los atributos seleccionados</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>atributos</td>
+                        <td>Array(String)</td>
+                        <td>Array de nombres de atributo</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="method">
+                <h3>ocultar_links()</h3>
+                <p><strong>Descripción:</strong> Oculta los elementos de enlace a fichero del formulario</p>
+            </div>
+
+            <div class="method">
+                <h3>reemplazar_input_vacio()</h3>
+                <p><strong>Descripción:</strong> Cambia los campos de atributos de tipo select, radio, y checkbox por campos input vacíos</p>
+            </div>
+
+            <div class="method">
+                <h3>modificar_datos(fila)</h3>
+                <p><strong>Descripción:</strong> Modifica la presentación de los datos de los atributos especiales</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>fila</td>
+                        <td>Estructura de datos</td>
+                        <td>Conjunto de datos del registro de la entidad</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="method">
+                <h3>rellenar_valorespordefecto()</h3>
+                <p><strong>Descripción:</strong> Rellena con sus valores por defecto a los campos de atributos que tengan uno asignado</p>
+            </div>
+
+            <div class="method">
+                <h3>colocar_readonly(atributos)</h3>
+                <p><strong>Descripción:</strong> Impide las modificaciones de los atributos seleccionados</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>atributos</td>
+                        <td>Array(String)</td>
+                        <td>Array de nombres de atributo</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="method">
+                <h3>get_especiales()</h3>
+                <p><strong>Descripción:</strong> Devuelve aquellos atributos susceptibles a necesitar una conversión de formato (fechas y atributos con validaciones personalizadas)</p>
+                
+                <p><strong>Output:</strong> array de nombres de atributo</p>
+            </div>
+
+            <div class="method">
+                <h3>get_primary_key()</h3>
+                <p><strong>Descripción:</strong> Devuelve aquellos atributos que contengan el parámetro 'is_pk: true'</p>
+                
+                <p><strong>Output:</strong> array de nombres de atributo</p>
+            </div>
+
+            <div class="method">
+                <h3>get_autoincrementales()</h3>
+                <p><strong>Descripción:</strong> Devuelve aquellos atributos que contengan el parámetro 'is_autoincrement: true'</p>
+                
+                <p><strong>Output:</strong> array de nombres de atributo</p>
+            </div>
+
+            <div class="method">
+                <h3>get_ficheros()</h3>
+                <p><strong>Descripción:</strong> Devuelve aquellos atributos que guarden ficheros</p>
+                
+                <p><strong>Output:</strong> array de nombres de atributo</p>
+            </div>
+
+            <div class="method">
+                <h3>get_input_ficheros()</h3>
+                <p><strong>Descripción:</strong> Devuelve aquellos atributos que correspondan a nombres de ficheros</p>
+                
+                <p><strong>Output:</strong> array de nombres de atributo</p>
+            </div>
+
+            <div class="method">
+                <h3>colocar_validaciones(accion)</h3>
+                <p><strong>Descripción:</strong> Coloca en cada campo del formulario el evento que ejecutará la validación de los datos introducidos según el atributo</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>accion</td>
+                        <td>String</td>
+                        <td>Código de la acción del formulario</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="method">
+                <h3>validar_atributo(atributo, accion)</h3>
+                <p><strong>Descripción:</strong> Aplica las funciones de validación al atributo del formulario según la acción que corresponde</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>atributo</td>
+                        <td>String</td>
+                        <td>Nombre del atributo</td>
+                    </tr>
+                    <tr>
+                        <td>accion</td>
+                        <td>String</td>
+                        <td>Código de la acción del formulario</td>
+                    </tr>
+                </table>
+                <p><strong>Output:</strong> true si cumple los criterios de validación o un código de error en caso contrario</p>
+            </div>
+        </section>
+
+        <section class="api-section">
+            <h2>Otros métodos</h2>
+            <p>Métodos añadidos sobre clases existentes</p>
+
+            <div class="method">
+                <h3>Validations: validate_date(id)</h3>
+                <p><strong>Descripción:</strong> Valida el formato de fecha</p>
+
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>String</td>
+                        <td>Id del campo input</td>
+                    </tr>
+                </table>
+                <p><strong>Output:</strong> true si cumple los criterios de validación o un código de error en caso contrario</p>
+            </div>
+
+            <div class="method">
+                <h3>Idioma: traduccion_dinamica_entidad(nombreentidad)</h3>
+                <p><strong>Descripción:</strong> Traduce los elementos de la interfaz de la entidad a partir de una estructura específica para textos</p>
+                
+                <table>
+                    <tr>
+                        <th>Parámetro</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                    </tr>
+                    <tr>
+                        <td>nombreentidad</td>
+                        <td>String</td>
+                        <td>Nombre de la entidad cargada</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="api-section">
+            <h2>FAQ</h2>
+
+            <div class="method">
+                <h3>¿Cómo añadir nuevas entidades?</h3>
+                <p>Introducir en la carpeta ./app/estructuras la estructura de datos de la nueva entidad de acuerdo con el modelo disponible en el fichero estructuraentidad.txt.<br>
+                    Si son necesarias validaciones personalizadas, introducir en la carpeta ./app/entidades una clase para la nueva entidad que contenga las funciones de validación personalizadas
+                        de acuerdo con el modelo disponible en el fichero claseentidad.txt.<br>
+                    Importar los archivos creados en index.html<br>
+                    Si no quiere utilizar la barra de búsqueda, añadir una opción más al menú</p>
+            </div>
+
+            <div class="method">
+                <h3>¿Cómo añadir traducciones a las entidades?</h3>
+                <p>Pueden añadirse traducciones de forma estática en los ficheros Textos_ES.js y Textos_EN.js, pero de forma más organizada
+                    también es posible añadir una nueva estructura según el modelo disponible en estructuratextos.txt y almacenarla junto a la estructura de la entidad correspondiente<br>
+                    Si no se añaden traducciones, los elementos de la interfaz serán nombrados de forma automática</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer></footer>
+</body>
+
+</html>

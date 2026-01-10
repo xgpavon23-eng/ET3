@@ -1,0 +1,26 @@
+class nombreentidad extends constructorentidad
+{
+    constructor(estructura)
+    {
+        super(estructura);
+    }
+
+	mostrarcambioatributo(atributo, valor)
+	{
+		switch(atributo)
+		{
+            //Añadir aquí las modificaciones a realizar sobre los atributos
+
+			default:
+				break;
+		}
+
+		return valor;
+	}
+
+    /*============================================================*/
+    /*  VALIDACIONES PERSONALIZADAS                               */
+    /*============================================================*/
+
+    //Añadir aquí las funciones de validaciones personalizadas
+}

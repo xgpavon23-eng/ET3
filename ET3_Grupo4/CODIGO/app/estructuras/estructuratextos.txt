@@ -1,0 +1,10 @@
+const textos_nombreentidad =
+{
+    codigoidioma:                           //Código del idioma correspondiente (ES, EN, ...)
+    {
+        codigotexto: textotraducido,        //Texto a introducir en el elemento de la interfaz con su código como clase
+        //Más textos...
+    }
+
+    //Más idiomas...
+}

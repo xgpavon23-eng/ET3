@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- meta y configuracion global-->
+	<meta charset="UTF-8">
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="./Base/css/IU.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="./Base/css/estilo-1.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="./Base/css/estilo-2.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="./Base/css/estilo-tests.css" media="screen" />
+	<!-- idioma -->
+	<script type="text/javascript" src="./locale/idioma.js"></script> 
+	<script type="text/javascript" src="./app/Textos_ES.js"></script>
+	<script type="text/javascript" src="./app/Textos_EN.js"></script>
+	<!-- clases dom -->
+	<script type="text/javascript" src="./Core/Validations_Class.js"></script>
+	<script type="text/javascript" src="./Core/ExternalAccess_class.js"></script>
+	<script type="text/javascript" src="./Core/Dom_table_Class.js"></script>
+	<script type="text/javascript" src="./Core/Dom_Class.js"></script>
+	<script type="text/javascript" src="./Base/EntidadAbstracta.js"></script>
+
+	<!-- clases generales -->
+	<script type="text/javascript" src="./app/buscadorentidad_Class.js"></script>
+	<script type="text/javascript" src="./app/constructorentidad_Class.js"></script>
+	<script type="text/javascript" src="./app/entidadgeneral_Class.js"></script>
+	<!-- estructuras entidades -->
+	<script type="text/javascript" src="./app/estructuras/estructura_alumnograduacion.js"></script>
+	<script type="text/javascript" src="./app/estructuras/estructura_articulo.js"></script>
+	<!-- clases entidades -->
+	<script type="text/javascript" src="./app/entidades/entidad_alumnograduacion.js"></script>
+
+	<!-- datos del grupo -->
+	<script type="text/javascript" src="./ET3_Datos_Grupo4.js"></script>
+
+	<!-- este es el script que carga las librerias ajax que usamos para acceder al back -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body onload="mostrarDatosGrupo(); search_entidad = new buscadorentidad();">
+
+	<!-- cabecera y botones idioma -->
+	<header id='header_page' class='bordeado'>
+		<img src="./iconos/API.png" alt="API Documentation" title="API Documentation" onclick="window.open('API.html', 'API', 'width=1100,height=800')">
+		<span class='text_titulo_app'></span>
+		
+		<img src="./iconos/Spain.png" onclick="setLang('ES');" />
+        <img src="./iconos/United-Kingdom.png" onclick="setLang('EN');" />
+	</header>
+
+	<!-- menu de entidades -->
+	<nav class='bordeado'><span class = 'text_titulo_menu' onclick="menu_work();"></span>
+	</nav>
+	<aside id='div-menu'>
+		<ol>
+		    <li class="opcionmenu" id="buscador_entidad"></li>
+			<li class="opcionmenu"><span class = 'text_menu_alumnograduacion' onclick="entidad = search_entidad.buscar_entidad('alumnograduacion');">Gestionar alumnos</span></li>
+			<!-- agregar nuevas selecciones de entidad aqui -->
+			<!-- <li class="opcionmenu"><span class = 'text_menu_[nombreentidad]' onclick="entidad = search_entidad.buscar_entidad([nombreentidad]);">Gestionar nombreentidad</span></li> -->
+	  	</ol>
+	</aside>
+
+	<!-- gestion de entidades -->
+	<section id="IU_manage_entity">
+		<section id="IU_manage_head">
+			<div id='title_page' class='bordeado'><span id = "text_title_page"></span>
+			</div>
+			<div id="add_search_columns">
+        		<img id="botonADD" src="./iconos/ADD.png" onclick="entidad.createForm_ADD();" />
+        		<img id="botonSEARCH" src="./iconos/SEARCH.png" onclick="entidad.createForm_SEARCH();"/>
+								
+				<label id="label_seleccioncolumnas" class ="label_seleccioncolumnas"></label>
+				<select id="seleccioncolumnas" multiple>
+				</select>
+        	</div>
+		</section>
+
+		<section id="IU_manage_table">
+		</section>
+
+	</section>
+
+	<!-- formularios entidades -->
+	<section id="Div_IU_form" class='div_IU_form bordeado'>
+		<div class = "contenidoForm" id="contenidoForm">
+			<div class = "class_titulo_form">
+				<span id="class_contenido_titulo_form"></span>
+			</div>
+			<div id="contenedor_IU_form">	
+			</div><br>
+			<img src="./iconos/BACK.png" onclick="entidad.dom.hide_element('Div_IU_form');" />
+		</div>
+	</section>
+
+	<article class='bordeado'></article>
+
+	<!-- tabla de datos del grupo -->
+	<nav class='bordeado'>
+		<section id="info-grupo" class="bordeado">
+			<h3 class="titulo_info_grupo"></h3>
+			<div id="datos-grupo"></div>
+		</section>
+	</nav>
+
+	<footer class='bordeado'>Pie de página</footer>
+
+	<!-- Overlay para acompañar el modal -->
+	<div id="modal_action_overlay"></div>
+
+	<!-- Modal para mostrar los errores de accion -->
+	<div id="error_action_modal">
+		<span id="error_action_msg"></span>
+		<!--<img src="./iconos/BACK.png" onclick="cerrarModalError();" />-->
+		<button onclick="search_entidad.dom.cerrarModalError()">X</button>
+	</div>
+	
+	<script type="text/javascript">
+		// document.getElementById('div-menu').style.display = 'none';
+		document.getElementById('div-menu').classList.add("hidden");
+		
+		document.getElementById('Div_IU_form').style.display = 'none';
+		
+		document.getElementById('IU_manage_entity').style.display = 'none';
+		
+		/*	hide the text error box if is necessary	
+		document.getElementById('span_error_name').style.display = 'none';
+		*/
+		function menu_work(){
+			if (document.getElementById('div-menu').classList.contains("hidden")){
+				document.getElementById('div-menu').classList.remove("hidden");
+			}
+			else{
+				document.getElementById('div-menu').classList.add("hidden");
+				document.getElementById('IU_manage_entity').style.display = 'none';
+			}
+		}
+
+		function mostrarDatosGrupo()
+		{
+			const contenedor = document.getElementById('datos-grupo');
+			if(def_datos_Grupo4 && Array.isArray(def_datos_Grupo4))
+			{
+				const tabla = document.createElement('table');
+				tabla.className = 'tabla-grupo';
+
+				const thead = document.createElement('thead');
+				const trHead = document.createElement('tr');
+				Object.keys(def_datos_Grupo4[0]).forEach(columna =>
+				{
+					const th = document.createElement('th');
+					th.textContent = columna;
+					th.className = 'dato_grupo_'+columna;
+					trHead.appendChild(th);
+				});
+
+				thead.appendChild(trHead);
+				tabla.appendChild(thead);
+
+				const tbody = document.createElement('tbody');
+				def_datos_Grupo4.forEach(alumno =>
+				{
+					const tr = document.createElement('tr');
+					Object.values(alumno).forEach(valor =>
+					{
+						const td = document.createElement('td');
+						td.textContent = valor;
+						tr.appendChild(td);
+					});
+					tbody.appendChild(tr);
+				});
+				tabla.appendChild(tbody);
+
+				contenedor.appendChild(tabla);
+			}
+		}
+
+		setLang();
+	</script>
+
+</body>
+
+
+</html>
