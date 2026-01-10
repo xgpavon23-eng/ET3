@@ -37,7 +37,7 @@ class dom extends dom_table {
 	mostrar_error_campo(id, codigoerror){
 		document.getElementById('span_error_'+id).style.display = 'inline';
 		document.getElementById('error_'+id).className = codigoerror;
-		document.getElementById('error_'+id).innerHTML = codigoerror+'_'+getCookie('lang');
+		document.getElementById('error_'+id).innerHTML = codigoerror+'-'+getCookie('lang');
 		document.getElementById(id).style.borderBlockColor = 'red';
 		document.getElementById('submit_button').focus();
 		setLang();
