@@ -187,7 +187,7 @@ Estructura de selectores CSS y estilos:
         
         display: flex; /* Distribución flexible de elementos */
         flex-direction: column; /* Distribuye elementos en columna */
-        align-items: center; /* Centra horizontalmente los elementos */
+        align-items: flex-start; 
     }
 
     /* Estilos para los labels dentro del formulario */
@@ -208,7 +208,7 @@ Estructura de selectores CSS y estilos:
 
     /* Estilos para los inputs dentro del formulario */
     & input {
-        width: 100%; /* Ocupa todo el ancho del contenedor padre */
+        /*width: 100%; /* Ocupa todo el ancho del contenedor padre */
 
         padding: 5pt; /* Relleno */
         padding-left: 15pt; /* Relleno izquierdo */
@@ -248,7 +248,7 @@ Estructura de selectores CSS y estilos:
 
     /* Estilos para los textarea dentro del formulario */
     & textarea {
-        width: 100%; /* Ocupa todo el ancho del contenedor padre */
+       /* width: 100%; /* Ocupa todo el ancho del contenedor padre */
         padding: 5pt; /* Relleno */
         padding-left: 15pt; /* Relleno izquierdo */
         margin-top: 5pt; /* Margen superior */
@@ -263,7 +263,7 @@ Estructura de selectores CSS y estilos:
     }
 
     & select {
-        width: 100%; /* Ocupa todo el ancho del contenedor padre */
+        /*width: 100%; /* Ocupa todo el ancho del contenedor padre */
         padding: 5pt; /* Relleno */
         padding-left: 15pt; /* Relleno izquierdo */
         margin-top: 5pt; /* Margen superior */
@@ -282,7 +282,7 @@ Estructura de selectores CSS y estilos:
         align-items: center; /* Alinea elementos al inicio (izquierda) */
         justify-content: flex-start; /* Alinea elementos al inicio (izquierda) */
 
-        width: 100%; /* Ocupa todo el ancho del contenedor padre */
+        /*width: 100%; /* Ocupa todo el ancho del contenedor padre */
 
         margin-left: 30pt; /* Margen izquierdo */
         margin-top: 10pt; /* Margen superior */
@@ -441,10 +441,11 @@ Estructura de selectores CSS y estilos:
 
     /* Estilo para el a que tiene una imagen y enlaza a la página de la foto de la persona */
     & a:has(img) {
-        width: 50%;
+        width: 20%;
         display: flex; /* Distribución flexible de elementos */
         justify-content: center; /* Centra horizontalmente los elementos */
         align-items: center; /* Centra verticalmente los elementos */
+        align-self: flex-start;
     }
 
 }
@@ -457,11 +458,11 @@ Estructura de selectores CSS y estilos:
     el botón con un par de propiedades */
 
     display: grid; /* Distribución en cuadrícula */
-    place-items: center; /* Centrar elementos en sus celdas */
+    place-items: left; /* Centrar elementos en sus celdas */
 
     /* Estilos para el botón dentro del contenedor */
     & button {
-        width: 80%; /* Ocupa el 80% del ancho del contenedor padre */
+        width: 30%; /* Ocupa el 80% del ancho del contenedor padre */
         border: 0; /* Sin bordes */
         border-radius: 20pt; /* Bordes redondeados */
         margin-top: 10pt; /* Margen superior */
