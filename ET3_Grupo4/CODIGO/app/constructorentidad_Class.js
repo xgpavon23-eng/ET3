@@ -42,12 +42,13 @@ class constructorentidad extends EntidadAbstracta
         switch(this.estructura_entidad["attributes"][atributo]["html"]["tag"])
         {
             case 'input':
-                field += '<input type='+this.estructura_entidad["attributes"][atributo]["html"]["type"]+' id="'+atributo+'" name="'+atributo+'"></input>';
+                field += '<input type='+this.estructura_entidad["attributes"][atributo]["html"]["type"]+' id="'+atributo+
+                    '" name="'+atributo+'" size="'+this.estructura_entidad["attributes"][atributo]["html"]["component_visible_size"]+'"></input>';
                 break;
 
             case 'textarea':
                 field += '<textarea rows='+this.estructura_entidad["attributes"][atributo]["html"]["rows"]+
-                    ' cols='+this.estructura_entidad["attributes"][atributo]["html"]["type"]+
+                    ' cols='+this.estructura_entidad["attributes"][atributo]["html"]["columns"]+
                     ' type="text" id="'+atributo+'" name="'+atributo+'"></textarea>';
                 break;
 
@@ -573,4 +574,5 @@ class constructorentidad extends EntidadAbstracta
 		this.dom.mostrar_exito_campo(atributo);
 		return true;
 	}
+
 }
